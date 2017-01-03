@@ -28,7 +28,7 @@ function processNode(data, schema, files) {
       }
     } else if (schema._each != null) {
       let filename = schema._each(data[key], key);
-      if (filename != null) files[filename] = data;
+      if (filename != null) files[filename] = data[key];
     } else {
       output[key] = data[key];
       outputDirty = true;
