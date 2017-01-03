@@ -1,12 +1,9 @@
 import generate from './generate';
+import separate from './separate';
 import store from './store';
 
-async function metagen() {
-  let metadata = await generate();
-  store(metadata);
+export default async function metagen(src, dest) {
+  let metadata = await generate(src);
+  let files = separate(metadata);
+  store(files, dest);
 }
-
-export default metagen;
-
-// Run the function if it's the entry point.
-if (require.main === module) metagen();

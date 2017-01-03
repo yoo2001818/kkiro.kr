@@ -1,3 +1,4 @@
+import path from 'path';
 import fs from 'fs-promise';
 import glob from 'glob-promise';
 import frontMatter from 'front-matter';
@@ -15,8 +16,8 @@ function generateSlug(metadata) {
 }
 
 // Actually, this whole code should be provided by end user
-export default async function generate() {
-  let files = await glob('posts/**/*.md');
+export default async function generate(src) {
+  let files = await glob(path.resolve(src, '**/*.md'));
 
   let postsFull = await Promise.all(files.map(async file => {
     const data = await fs.readFile(file, 'utf-8');
@@ -52,6 +53,5 @@ export default async function generate() {
   }
   let tags = Object.keys(tagEntries);
   let output = { postEntries, posts, tagEntries, tags };
-  console.log(output);
   return output;
 }
