@@ -33,6 +33,7 @@ export default async function generate(src) {
     metadata.content = content.body;
     return metadata;
   }));
+  postsFull.reverse();
   // Sort the posts in date order, newest first.
   postsFull.sort((a, b) => b.date.getTime() - a.date.getTime());
   // Generate full post entries

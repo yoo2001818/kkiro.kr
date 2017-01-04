@@ -9,8 +9,6 @@ export default function server(src) {
     let metadata = await generate(src);
     data = separate(metadata);
   }
-  regenerate();
-
   watch.watchTree(src, regenerate);
 
   // Serve on-memory
