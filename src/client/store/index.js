@@ -1,0 +1,22 @@
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+
+import thunkMiddleware from 'redux-thunk';
+import promiseMiddleware from 'redux-promise';
+import createLogger from 'redux-logger';
+
+import reducers from '../reducer';
+
+let logger = createLogger();
+
+export default function configureStore(initialState, appendage = []) {
+  const reducer = combineReducers(reducers);
+  const middlewares = applyMiddleware.apply(null, [
+    thunkMiddleware,
+    promiseMiddleware,
+    logger
+  ].concat(appendage));
+
+  let createStoreWithMiddleware = middlewares(createStore);
+
+  return createStoreWithMiddleware(reducer, initialState);
+}

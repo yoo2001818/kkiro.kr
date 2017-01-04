@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -25,9 +24,6 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
     // new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'react-blog'
-    }),
     new ExtractTextPlugin('bundle.css', {
       disable: process.env.NODE_ENV !== 'production'
     })

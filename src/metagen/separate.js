@@ -1,15 +1,4 @@
-// This represents how the value should be stored by metadata generator /
-// loaded by client code.
-const SCHEMA = {
-  tags: 'tags',
-  posts: 'posts',
-  postEntries: {
-    _each: ({ id }) => `post-${id}`
-  },
-  tagEntries: {
-    _each: (_, tag) => `tag-${tag}`
-  }
-};
+import SCHEMA from '../schema';
 
 function processNode(data, schema, files) {
   if (schema == null) return data;

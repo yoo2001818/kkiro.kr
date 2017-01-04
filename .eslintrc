@@ -36,7 +36,11 @@
     "curly": [
       2,
       "multi-line"
-    ]
+    ],
+    "react/prop-types": 1,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2
   },
   "parserOptions": {
     "ecmaVersion": 8,
@@ -50,5 +54,8 @@
     "node": true,
     "browser": true
   },
+  "plugins": [
+    "react"
+  ],
   "extends": "eslint:recommended"
 }
