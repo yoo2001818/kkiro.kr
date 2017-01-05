@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
+import { Link } from 'react-router';
+
 class PostList extends Component {
   componentDidMount() {
     this.props.load('posts');
@@ -17,7 +19,9 @@ class PostList extends Component {
     return (
       <ul>
         { posts.map((v, i) => (
-          <li key={i}>{v.title}</li>
+          <li key={i}>
+            <Link to={`/post/${v.id}`}>{v.title}</Link>
+          </li>
         )) }
       </ul>
     );

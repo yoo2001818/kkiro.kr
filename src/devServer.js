@@ -16,7 +16,7 @@ app.use(webpackDevMiddleware(webpackCompiler, {
   publicPath: webpackConfig.output.publicPath,
   serverSideRender: true
 }));
-app.get('/', (req, res) => {
+app.use((req, res) => {
   const assetsByChunkName = res.locals.webpackStats.toJson().assetsByChunkName;
   const publicPath = webpackConfig.output.publicPath;
   let assets = assetsByChunkName.main;

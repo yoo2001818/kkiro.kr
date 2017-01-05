@@ -9,6 +9,7 @@ import createStore from './store';
 
 import App from './container/app';
 import PostList from './container/postList';
+import Post from './container/post';
 
 let store = createStore();
 
@@ -17,6 +18,7 @@ render((
     <Router history={browserHistory}>
       <Route path='/' component={App}>
         <IndexRoute component={PostList} />
+        <Route path='/post/:id' component={Post} />
       </Route>
     </Router>
   </Provider>
