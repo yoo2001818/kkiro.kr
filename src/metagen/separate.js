@@ -1,25 +1,30 @@
 import SCHEMA from '../schema';
 
-function processNode(data, schema, files) {
+function processNode(data, schema, files, keys) {
   if (schema == null) return data;
   if (typeof schema === 'string') {
     files[schema] = data;
     return;
   }
+  if (typeof schema === 'function') {
+    let filename = schema.apply(null, keys);
+    if (filename != null) files[filename] = data;
+    return;
+  }
   let output = {};
   let outputDirty = false;
   for (let key in data) {
+    let currentKeys = [key].concat(keys);
+    let schemaOutput;
     if (schema[key] != null) {
-      let schemaOutput = processNode(data[key], schema[key], files);
-      if (schemaOutput != null) {
-        output[key] = schemaOutput;
-        outputDirty = true;
-      }
+      schemaOutput = processNode(data[key], schema[key], files, currentKeys);
     } else if (schema._each != null) {
-      let filename = schema._each(data[key], key);
-      if (filename != null) files[filename] = data[key];
+      schemaOutput = processNode(data[key], schema._each, files, currentKeys);
     } else {
-      output[key] = data[key];
+      schemaOutput = data[key];
+    }
+    if (schemaOutput != null) {
+      output[key] = schemaOutput;
       outputDirty = true;
     }
   }
@@ -29,6 +34,6 @@ function processNode(data, schema, files) {
 
 export default function separate(data) {
   let files = {};
-  processNode({main: data}, {main: SCHEMA}, files);
+  processNode({main: data}, {main: SCHEMA}, files, []);
   return files;
 }
