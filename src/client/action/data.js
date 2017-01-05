@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
 import schema from '../../schema';
 
-export const FETCH = 'data/fetch';
+export const FETCH_COMPLETE = 'data/fetchComplete';
 
-export const fetch = createAction(FETCH);
+export const fetchComplete = createAction(FETCH_COMPLETE);
 
 export function load(...keys) {
   return (dispatch, getState) => {
@@ -26,8 +26,18 @@ export function load(...keys) {
           if (typeof resId !== 'string') {
             throw new Error('Resource ID must be string');
           }
-          console.log('Fetch!', resId);
-          // TODO fetch
+          let args = keys.slice(0, i + 1);
+          return fetch('/metadata/' + resId + '.json')
+          .then(res => res.json())
+          .then(body => {
+            // Reconstruct structure
+            let rootObj = {};
+            args.reduce((prev, current, i) => {
+              let newObj = prev[current] = i >= args.length - 1 ? body : {};
+              return newObj;
+            }, rootObj);
+            return dispatch(fetchComplete(rootObj));
+          });
         }
       }
     }

@@ -1,16 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 
-import { load } from '../action/data';
-
-class App extends Component {
-  componentDidMount() {
-    this.props.load('posts');
-  }
+export default class App extends Component {
   render() {
     return (
       <div>
-        <p>App!</p>
+        <h1>Welcome to the blog!</h1>
         {this.props.children}
       </div>
     );
@@ -20,5 +14,3 @@ class App extends Component {
 App.propTypes = {
   children: PropTypes.node
 };
-
-export default connect(state => state, { load })(App);
