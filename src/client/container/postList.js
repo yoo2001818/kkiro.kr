@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
-import { Link } from 'react-router';
+import PostList from '../component/postList';
 
-class PostList extends Component {
+class PostListView extends Component {
   componentDidMount() {
     this.props.load('posts');
   }
@@ -17,22 +17,16 @@ class PostList extends Component {
       );
     }
     return (
-      <ul>
-        { posts.map((v, i) => (
-          <li key={i}>
-            <Link to={`/${v.id}`}>{v.title}</Link>
-          </li>
-        )) }
-      </ul>
+      <PostList posts={posts} />
     );
   }
 }
 
-PostList.propTypes = {
+PostListView.propTypes = {
   posts: PropTypes.array,
   load: PropTypes.func
 };
 
 export default connect(state => ({
   posts: state.data && state.data.posts
-}), { load })(PostList);
+}), { load })(PostListView);

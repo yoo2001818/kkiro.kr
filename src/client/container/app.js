@@ -1,11 +1,19 @@
+import './app.scss';
+
 import React, { Component, PropTypes } from 'react';
+
+import Header from '../component/header';
+import Footer from '../component/footer';
 
 export default class App extends Component {
   render() {
     return (
-      <div>
-        <h1>Welcome to the blog!</h1>
-        {this.props.children}
+      <div className='app'>
+        <Header />
+        <main>
+          {this.props.children}
+        </main>
+        <Footer />
       </div>
     );
   }

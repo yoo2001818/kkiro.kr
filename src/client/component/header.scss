@@ -1,0 +1,41 @@
+@import '../style/index.scss';
+
+header {
+  box-sizing: border-box;
+  width: 100%;
+  height: $header-height;
+  padding: 0 1em;
+  line-height: $header-height;
+
+  background: $green-700;
+  color: $grey-100;
+  border-bottom: 1px solid $green-800;
+
+  & > .content {
+    max-width: $tablet-size;
+    margin: 0 auto;
+    & > h1 {
+      display: inline-block;
+      margin: 0;
+      font-weight: normal;
+      font-size: 1.6em;
+      vertical-align: middle;
+    }
+    & > nav {
+      display: inline-block;
+      vertical-align: middle;
+      & > ul {
+        display: inline-block;
+        list-style-type: none;
+        margin: 0 0.6em;
+        padding: 0;
+        & > li {
+          display: inline-block;
+          padding: 0 0.4em;
+          font-size: 1.1em;
+          color: $green-300;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import '../style/index.scss';
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    & > .content {
+      max-width: $tablet-size;
+      margin: 0 auto 1.8em;
+      color: $grey-600;
+      font-size: 0.8em;
+    }
+}

@@ -48,6 +48,10 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style', 'css')
       },
       {
+        test: /\.s[ca]ss$/i,
+        loader: ExtractTextPlugin.extract('style', 'css!sass')
+      },
+      {
         test: /(\.vert|\.frag|\.obj|\.mtl|\.dae)$/i,
         loader: 'raw'
       },
