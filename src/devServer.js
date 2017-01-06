@@ -4,7 +4,7 @@ import config from '../blog.config';
 import devServer from './metagen/devServer';
 
 import webpackDevMiddleware from 'webpack-dev-middleware';
-// import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
 
@@ -18,6 +18,7 @@ app.use(webpackDevMiddleware(webpackCompiler, {
   serverSideRender: true,
   noInfo: true
 }));
+app.use(webpackHotMiddleware(webpackCompiler));
 app.use((req, res) => {
   const assetsByChunkName = res.locals.webpackStats.toJson().assetsByChunkName;
   const publicPath = webpackConfig.output.publicPath;

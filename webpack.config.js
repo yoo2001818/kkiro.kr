@@ -5,8 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   context: __dirname,
   // No HMR for now
-  // 'webpack-hot-middleware/client?overlay=true'
-  entry: ['client'],
+  entry: ['client', 'webpack-hot-middleware/client?overlay=true'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/assets/',
@@ -23,7 +22,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('bundle.css', {
       disable: process.env.NODE_ENV !== 'production'
     })
