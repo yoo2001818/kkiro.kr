@@ -31,6 +31,13 @@ export default async function generate(src) {
     }
     metadata.id = generateSlug(metadata);
     metadata.content = content.body;
+    // Find <hr /> tag to create 'Read more...'
+    {
+      let result = /^\s+([*\-_]\s*){3,}$/m.exec(metadata.content);
+      if (result != null) {
+        metadata.brief = metadata.content.slice(0, result.index);
+      }
+    }
     return metadata;
   }));
   postsFull.reverse();
@@ -42,8 +49,8 @@ export default async function generate(src) {
     postEntries[post.id] = post;
   }
   // Strip post data
-  let posts = postsFull.map(({ id, title, tags, date }) =>
-    ({ id, title, tags, date }));
+  let posts = postsFull.map(({ id, title, tags, date, brief }) =>
+    ({ id, title, tags, date, brief }));
   // Generate tag entries
   let tagEntries = {};
   for (let post of posts) {
