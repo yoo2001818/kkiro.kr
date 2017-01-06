@@ -11,10 +11,12 @@ import webpackConfig from '../webpack.config';
 let webpackCompiler = webpack(webpackConfig);
 
 let app = express();
-app.use('/metadata', devServer(config.source));
+app.use('/metadata', devServer(config.source),
+  (req, res) => res.sendStatus(404));
 app.use(webpackDevMiddleware(webpackCompiler, {
   publicPath: webpackConfig.output.publicPath,
-  serverSideRender: true
+  serverSideRender: true,
+  noInfo: true
 }));
 app.use((req, res) => {
   const assetsByChunkName = res.locals.webpackStats.toJson().assetsByChunkName;

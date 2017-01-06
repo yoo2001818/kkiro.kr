@@ -28,7 +28,10 @@ export function load(...keys) {
           }
           let args = keys.slice(0, i + 1);
           return fetch('/metadata/' + resId + '.json')
-          .then(res => res.json())
+          .then(res => {
+            if (res.status == 200) return res.json();
+            else if (res.status === 404) return false;
+          })
           .then(body => {
             // Reconstruct structure
             let rootObj = {};

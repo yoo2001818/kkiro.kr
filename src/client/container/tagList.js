@@ -5,22 +5,22 @@ import { load } from '../action/data';
 
 import { Link } from 'react-router';
 
-class PostList extends Component {
+class TagList extends Component {
   componentDidMount() {
-    this.props.load('posts');
+    this.props.load('tags');
   }
   render() {
-    const { posts } = this.props;
-    if (posts == null) {
+    const { tags } = this.props;
+    if (tags == null) {
       return (
         <div>Loading...</div>
       );
     }
     return (
       <ul>
-        { posts.map((v, i) => (
+        { tags.map((v, i) => (
           <li key={i}>
-            <Link to={`/${v.id}`}>{v.title}</Link>
+            <Link to={`/tags/${v}`}>{v}</Link>
           </li>
         )) }
       </ul>
@@ -28,11 +28,11 @@ class PostList extends Component {
   }
 }
 
-PostList.propTypes = {
-  posts: PropTypes.array,
+TagList.propTypes = {
+  tags: PropTypes.array,
   load: PropTypes.func
 };
 
 export default connect(state => ({
-  posts: state.data && state.data.posts
-}), { load })(PostList);
+  tags: state.data && state.data.tags
+}), { load })(TagList);

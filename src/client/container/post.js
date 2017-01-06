@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
+import NotFound from './notFound';
+
 class Post extends Component {
   componentDidMount() {
     this.props.load('postEntries', this.props.params.id);
@@ -10,6 +12,11 @@ class Post extends Component {
   render() {
     const { postEntries, params } = this.props;
     const post = postEntries && postEntries[params.id];
+    if (post === false) {
+      return (
+        <NotFound />
+      );
+    }
     if (post == null) {
       return (
         <div>Loading...</div>
