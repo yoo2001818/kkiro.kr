@@ -36,6 +36,10 @@ export default async function generate(src) {
       let result = /^\s+([*\-_]\s*){3,}$/m.exec(metadata.content);
       if (result != null) {
         metadata.brief = metadata.content.slice(0, result.index);
+        metadata.more = true;
+      } else {
+        metadata.brief = metadata.content;
+        metadata.more = false;
       }
     }
     return metadata;
@@ -49,8 +53,11 @@ export default async function generate(src) {
     postEntries[post.id] = post;
   }
   // Strip post data
-  let posts = postsFull.map(({ id, title, tags, date, brief }) =>
-    ({ id, title, tags, date, brief }));
+  let posts = postsFull.map(post => {
+    let newPost = Object.assign({}, post);
+    delete newPost.content;
+    return newPost;
+  });
   // Generate tag entries
   let tagEntries = {};
   for (let post of posts) {

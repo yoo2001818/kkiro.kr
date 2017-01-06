@@ -32,6 +32,7 @@ app.use((req, res) => {
       assets
       .filter(path => path.endsWith('.css'))
       .map(path => `<link rel="stylesheet" href="${publicPath + path}" />`)
+      .join('')
     }
   </head>
   <body>
@@ -40,6 +41,7 @@ app.use((req, res) => {
       assets
       .filter(path => path.endsWith('.js'))
       .map(path => `<script src="${publicPath + path}"></script>`)
+      .join('')
     }
   </body>
 </html>

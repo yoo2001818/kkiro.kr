@@ -1,11 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PRODUCTION = process.env.NODE_ENV === 'production';
 
 module.exports = {
   context: __dirname,
-  // No HMR for now
-  entry: ['client', 'webpack-hot-middleware/client?overlay=true'],
+  entry: ['client']
+    .concat(!PRODUCTION ? 'webpack-hot-middleware/client?overlay=true' : []),
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/assets/',
@@ -21,12 +22,13 @@ module.exports = {
   // devtool: 'source-map',
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('bundle.css', {
-      disable: process.env.NODE_ENV !== 'production'
-    })
-  ],
+    new webpack.NoErrorsPlugin()
+  ]
+    .concat(PRODUCTION ? [
+      new ExtractTextPlugin('bundle.css')
+    ] : [
+      new webpack.HotModuleReplacementPlugin()
+    ]),
   module: {
     loaders: [
       {
@@ -44,11 +46,13 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        loader: ExtractTextPlugin.extract('style', 'css')
+        loader: PRODUCTION ? ExtractTextPlugin.extract('style', 'css') :
+          'style!css'
       },
       {
         test: /\.s[ca]ss$/i,
-        loader: ExtractTextPlugin.extract('style', 'css!sass')
+        loader: PRODUCTION ? ExtractTextPlugin.extract('style', 'css!sass') :
+          'style!css!sass'
       },
       {
         test: /(\.vert|\.frag|\.obj|\.mtl|\.dae)$/i,

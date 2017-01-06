@@ -22,3 +22,11 @@ html, body, #root {
   font-family: 나눔바른고딕, 나눔고딕, NanumGothic,
   맑은 고딕, 돋움, Dotum, Arial, Helvetica, sans-serif;
 }
+
+a {
+  color: $blue-800;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
