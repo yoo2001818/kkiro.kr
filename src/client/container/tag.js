@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { load } from '../action/data';
 
 import NotFound from './notFound';
-import { Link } from 'react-router';
+
+import PostList from '../component/postList';
 
 class Tag extends Component {
   componentDidMount() {
@@ -24,13 +25,10 @@ class Tag extends Component {
       );
     }
     return (
-      <ul>
-        { tag.map((v, i) => (
-          <li key={i}>
-            <Link to={`/${v.id}`}>{v.title}</Link>
-          </li>
-        )) }
-      </ul>
+      <div className='tag-view'>
+        <h1>Posts of tag '{params.id}'</h1>
+        <PostList posts={tag} />
+      </div>
     );
   }
 }

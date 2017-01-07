@@ -18,7 +18,9 @@ export default class PostCard extends Component {
             </span>
             <ul className='tags'>
               { post.tags.map((v, i) => (
-                <li key={i}>{v}</li>
+                <li key={i}>
+                  <Link to={`/tags/${v}`}>{v}</Link>
+                </li>
               )) }
             </ul>
           </div>
