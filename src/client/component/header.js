@@ -1,13 +1,14 @@
 import './header.scss';
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Header extends Component {
   render() {
+    const { title } = this.props;
     return (
       <header>
         <div className='content'>
-          <h1>kkiro.kr</h1>
+          <h1>{ title }</h1>
           <nav>
             <ul>
               <li>About</li>
@@ -19,3 +20,7 @@ export default class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  title: PropTypes.node
+};

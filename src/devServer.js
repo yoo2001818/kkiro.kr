@@ -18,7 +18,7 @@ app.use('/metadata', metadata,
   (req, res) => res.sendStatus(404));
 
 app.get('/atom.xml', (req, res) => {
-  res.send(renderAtom(metadata.getMetadata()));
+  res.type('xml').send(renderAtom(metadata.getMetadata()));
 });
 
 app.use(webpackDevMiddleware(webpackCompiler, {

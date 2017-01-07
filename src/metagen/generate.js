@@ -7,8 +7,8 @@ import formatDate from '../util/formatDate';
 
 function generateSlug(metadata) {
   if (metadata.slug != null) return metadata.slug;
-  const { date } = metadata;
-  return formatDate(date) + '-' + slug(metadata.title, { lower: true });
+  const { published } = metadata;
+  return formatDate(published) + '-' + slug(metadata.title, { lower: true });
 }
 
 // Actually, this whole code should be provided by end user
@@ -20,9 +20,14 @@ export default async function generate(site, src) {
     const data = await fs.readFile(file, 'utf-8');
     const content = frontMatter(data);
     let metadata = content.attributes;
-    metadata.date = new Date(metadata.date);
-    let timestamp = metadata.date.getTime();
+    // Some mutation hell
+    // TODO Fix it
+    let updated = metadata.updated || metadata.published;
+    metadata.published = new Date(metadata.published);
+    metadata.updated = new Date(updated);
+    let timestamp = metadata.updated.getTime();
     if (lastUpdated < timestamp) lastUpdated = timestamp;
+    // Set tags
     if (metadata.tags != null) {
       metadata.tags = metadata.tags.split(/,\s*/);
     } else {
@@ -45,7 +50,7 @@ export default async function generate(site, src) {
   }));
   postsFull.reverse();
   // Sort the posts in date order, newest first.
-  postsFull.sort((a, b) => b.date.getTime() - a.date.getTime());
+  postsFull.sort((a, b) => b.published.getTime() - a.published.getTime());
   // Generate full post entries
   let postEntries = {};
   for (let post of postsFull) {

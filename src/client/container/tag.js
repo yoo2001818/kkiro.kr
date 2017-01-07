@@ -8,7 +8,7 @@ import NotFound from './notFound';
 import PostList from '../component/postList';
 
 class Tag extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.load('tagEntries', this.props.params.id);
   }
   render() {

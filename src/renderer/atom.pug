@@ -18,6 +18,7 @@ feed(xmlns='http://www.w3.org/2005/Atom')
       link(href=`${site.link.href}${post.id}`)
       summary(type='html')= post.briefHTML
       title= post.title
-      updated= post.date.toISOString()
+      published= post.published.toISOString()
+      updated= post.updated.toISOString()
       each tag in post.tags
         category(term=tag)/

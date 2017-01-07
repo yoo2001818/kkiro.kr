@@ -8,7 +8,7 @@ import PostRenderer from './postRenderer';
 
 export default class PostCard extends Component {
   render() {
-    const { post } = this.props;
+    const { post, full } = this.props;
     return (
       <article className='post-card'>
         <div className='header'>
@@ -16,8 +16,11 @@ export default class PostCard extends Component {
             <Link to={`/${post.id}`}>{post.title}</Link>
           </h1>
           <div className='extra'>
-            <span className='date'>
-              {formatDate(new Date(post.date))}
+            <span className='date' title={
+              'Updated: ' + new Date(post.updated).toLocaleString() +
+              '\nPublished: ' + new Date(post.published).toLocaleString()
+            }>
+              {formatDate(new Date(post.published))}
             </span>
             <ul className='tags'>
               { post.tags.map((v, i) => (
@@ -30,7 +33,7 @@ export default class PostCard extends Component {
         </div>
         <div className='content'>
           <PostRenderer post={post} />
-          { post.more && (
+          { post.more && !full && (
             <div className='more'>
               <Link to={`/${post.id}`}>Read more...</Link>
             </div>
@@ -42,5 +45,6 @@ export default class PostCard extends Component {
 }
 
 PostCard.propTypes = {
-  post: PropTypes.object
+  post: PropTypes.object,
+  full: PropTypes.bool
 };

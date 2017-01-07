@@ -6,7 +6,7 @@ import { load } from '../action/data';
 import PostList from '../component/postList';
 
 class PostListView extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.load('posts');
   }
   render() {

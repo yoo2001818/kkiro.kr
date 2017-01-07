@@ -1,6 +1,7 @@
 ---
 title: A test article
-date: 2016/1/3
+published: 2016/1/3
+updated: 2016/1/3
 tags: hello, world, many, many, mane, mani, eeee, aaaa, bbbb
 ---
 

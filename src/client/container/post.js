@@ -1,12 +1,15 @@
+import './post.scss';
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
 import NotFound from './notFound';
+import PostCard from '../component/postCard';
 
-class Post extends Component {
-  componentDidMount() {
+class PostView extends Component {
+  componentWillMount() {
     this.props.load('postEntries', this.props.params.id);
   }
   render() {
@@ -23,14 +26,14 @@ class Post extends Component {
       );
     }
     return (
-      <pre>
-        {post.content}
-      </pre>
+      <div className='post-view'>
+        <PostCard post={post} full />
+      </div>
     );
   }
 }
 
-Post.propTypes = {
+PostView.propTypes = {
   postEntries: PropTypes.object,
   load: PropTypes.func,
   params: PropTypes.object
@@ -38,4 +41,4 @@ Post.propTypes = {
 
 export default connect(state => ({
   postEntries: state.data && state.data.postEntries
-}), { load })(Post);
+}), { load })(PostView);

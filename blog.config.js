@@ -4,7 +4,7 @@ module.exports = {
   site: {
     title: 'kkiro.kr',
     subtitle: 'A blog',
-    rights: '(c) Kkiro. All rights reserved.',
+    rights: '&copy; Kkiro. All rights reserved.',
     // This is specified in Atom format.
     author: {
       name: 'Kkiro',

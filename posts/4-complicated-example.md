@@ -1,6 +1,7 @@
 ---
 title: Complicated Example
-date: 2016/1/7
+published: 2016/1/7
+updated: 2016/1/7
 tags: test, example
 ---
 

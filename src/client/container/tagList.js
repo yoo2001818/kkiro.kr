@@ -6,7 +6,7 @@ import { load } from '../action/data';
 import { Link } from 'react-router';
 
 class TagList extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.load('tags');
   }
   render() {

@@ -1,4 +1,4 @@
-import './postCard.scss';
+import './postRenderer.scss';
 
 import React, { Component, PropTypes } from 'react';
 import marked from 'marked';
