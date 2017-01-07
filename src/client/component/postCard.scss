@@ -3,8 +3,8 @@
 .post-card {
   background-color: $grey-100;
   border: 1px solid $grey-300;
-  padding: 1em 0.8em;
-  border-radius: 0.2em;
+  padding: 1em 1em 0.5em;
+  border-radius: 0.3em;
   & > .header {
     & > h1 {
       padding: 0;
@@ -44,11 +44,11 @@
     }
   }
   & > .content {
-    margin: 0.6em 0 0;
-    padding: 0;
-  }
-  & > .more {
-    padding: 0.4em 0 0;
-    font-size: 0.95em;
+    margin: 0.6em 0 1em;
+    padding: 0 0.5em;
+    & > .more {
+      margin: 1em 0;
+      font-size: 0.95em;
+    }
   }
 }

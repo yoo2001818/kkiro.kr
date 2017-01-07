@@ -3,16 +3,12 @@ import fs from 'fs-promise';
 import glob from 'glob-promise';
 import frontMatter from 'front-matter';
 import slug from 'slug';
-import leftPad from 'left-pad';
+import formatDate from '../util/formatDate';
 
 function generateSlug(metadata) {
   if (metadata.slug != null) return metadata.slug;
   const { date } = metadata;
-  const yyyy = leftPad(date.getFullYear(), 4, 0);
-  const mm = leftPad(date.getMonth() + 1, 2, 0);
-  const dd = leftPad(date.getDate(), 2, 0);
-  const dateStr = [yyyy, mm, dd].join('-');
-  return dateStr + '-' + slug(metadata.title, { lower: true });
+  return formatDate(date) + '-' + slug(metadata.title, { lower: true });
 }
 
 // Actually, this whole code should be provided by end user
@@ -33,7 +29,7 @@ export default async function generate(src) {
     metadata.content = content.body;
     // Find <hr /> tag to create 'Read more...'
     {
-      let result = /^\s+([*\-_]\s*){3,}$/m.exec(metadata.content);
+      let result = /^\s+([\-_]\s*){3,}$/m.exec(metadata.content);
       if (result != null) {
         metadata.brief = metadata.content.slice(0, result.index);
         metadata.more = true;

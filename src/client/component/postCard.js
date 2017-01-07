@@ -3,6 +3,9 @@ import './postCard.scss';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import formatDate from '../../util/formatDate';
+import PostRenderer from './postRenderer';
+
 export default class PostCard extends Component {
   render() {
     const { post } = this.props;
@@ -14,7 +17,7 @@ export default class PostCard extends Component {
           </h1>
           <div className='extra'>
             <span className='date'>
-              {post.date}
+              {formatDate(new Date(post.date))}
             </span>
             <ul className='tags'>
               { post.tags.map((v, i) => (
@@ -26,13 +29,13 @@ export default class PostCard extends Component {
           </div>
         </div>
         <div className='content'>
-          {post.brief}
+          <PostRenderer post={post} />
+          { post.more && (
+            <div className='more'>
+              <Link to={`/${post.id}`}>Read more...</Link>
+            </div>
+          )}
         </div>
-        { post.more && (
-          <div className='more'>
-            <Link to={`/${post.id}`}>Read more...</Link>
-          </div>
-        )}
       </article>
     );
   }
