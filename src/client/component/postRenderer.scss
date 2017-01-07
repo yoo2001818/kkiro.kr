@@ -2,6 +2,7 @@
 
 .post-renderer {
   color: $grey-800;
+  text-align: justify;
   // This is required to keep the list style same inside article list or not.
   ul {
     list-style-type: disc;

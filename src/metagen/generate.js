@@ -35,6 +35,7 @@ export default async function generate(site, src) {
     }
     metadata.id = generateSlug(metadata);
     metadata.content = content.body;
+    metadata.renderer = metadata.renderer || 'markdown';
     // Find <hr /> tag to create 'Read more...'
     {
       let result = /^\s+([\-_]\s*){3,}$/m.exec(metadata.content);
