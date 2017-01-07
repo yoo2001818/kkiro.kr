@@ -32,10 +32,10 @@ export default class PostCard extends Component {
           </div>
         </div>
         <div className='content'>
-          <PostRenderer post={post} />
+          <PostRenderer post={post} href={!full && `/${post.id}`}/>
           { post.more && !full && (
             <div className='more'>
-              <Link to={`/${post.id}`}>Read more...</Link>
+              <Link to={`/${post.id}#hr`}>Read more...</Link>
             </div>
           )}
         </div>

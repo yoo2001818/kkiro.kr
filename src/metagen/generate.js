@@ -62,7 +62,7 @@ export default async function generate(site, src) {
     let newPost = Object.assign({}, post);
     delete newPost.content;
     return newPost;
-  });
+  }).filter(post => !post.hidden);
   // Generate tag entries
   let tagEntries = {};
   for (let post of posts) {
@@ -71,7 +71,17 @@ export default async function generate(site, src) {
       tagEntries[tag].push(post);
     }
   }
-  let tags = Object.keys(tagEntries);
+  let tags = Object.keys(tagEntries).map(v => ({
+    name: v, length: tagEntries[v].length }));
+  tags.sort((a, b) => {
+    let lengthSort = b.length - a.length;
+    if (lengthSort !== 0) return lengthSort;
+    
+    let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
   site = Object.assign({}, site, {
     updated: new Date(lastUpdated).toISOString()
   });

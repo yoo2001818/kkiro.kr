@@ -1,0 +1,16 @@
+@import '../style/index.scss';
+
+.loading {
+  text-align: center;
+  margin: 2em;
+  animation: 1s forwards loading-appear;
+}
+
+@keyframes loading-appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

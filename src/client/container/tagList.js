@@ -1,7 +1,11 @@
+import './tagList.scss';
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../action/data';
+
+import Loading from './loading';
 
 import { Link } from 'react-router';
 
@@ -13,17 +17,23 @@ class TagList extends Component {
     const { tags } = this.props;
     if (tags == null) {
       return (
-        <div>Loading...</div>
+        <Loading />
       );
     }
     return (
-      <ul>
-        { tags.map((v, i) => (
-          <li key={i}>
-            <Link to={`/tags/${v}`}>{v}</Link>
-          </li>
-        )) }
-      </ul>
+      <div className='tag-list-view'>
+        <h1>Tags</h1>
+        <ul className='tag-list'>
+          { tags.map((v, i) => (
+            <li key={i}>
+              <Link to={`/tags/${v.name}`} className='name'>
+                {v.name}
+              </Link>
+              <span className='length'>{v.length}</span>
+            </li>
+          )) }
+        </ul>
+      </div>
     );
   }
 }

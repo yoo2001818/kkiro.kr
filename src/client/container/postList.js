@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
+import Loading from './loading';
+
 import PostList from '../component/postList';
 
 class PostListView extends Component {
@@ -13,7 +15,7 @@ class PostListView extends Component {
     const { posts } = this.props;
     if (posts == null) {
       return (
-        <div>Loading...</div>
+        <Loading />
       );
     }
     return (

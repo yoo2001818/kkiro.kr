@@ -1,0 +1,38 @@
+@import '../style/index.scss';
+
+.tag-list-view {
+  & > .tag-list {
+    background-color: $grey-100;
+    border: 1px solid $grey-300;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 0.3em;
+  }
+}
+
+.tag-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  & > li {
+    display: inline-block;
+    // Should it be columns? or else?
+    width: 33%;
+    @media only screen and (max-width: 35em) {
+      width: 50%;
+    }
+    @media only screen and (max-width: 22em) {
+      width: 100%;
+    }
+    line-height: 1.5em;
+    & > .name {
+      // TODO create a 'tag' component
+      display: inline-block;
+      margin: 0.1em 0.4em 0.1em 0;
+      background-color: $grey-600;
+      color: $grey-100;
+      padding: 0 0.5em;
+      border-radius: 0.2em;
+    }
+  }
+}

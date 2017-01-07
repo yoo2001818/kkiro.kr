@@ -4,12 +4,16 @@ import { connect } from 'react-redux';
 import { load } from '../action/data';
 
 import NotFound from './notFound';
+import Loading from './loading';
 
 import PostList from '../component/postList';
 
 class Tag extends Component {
   componentWillMount() {
     this.props.load('tagEntries', this.props.params.id);
+  }
+  componentWillReceiveProps(nextProps) {
+    nextProps.load('tagEntries', nextProps.params.id);
   }
   render() {
     const { tagEntries, params } = this.props;
@@ -21,7 +25,7 @@ class Tag extends Component {
     }
     if (tag == null) {
       return (
-        <div>Loading...</div>
+        <Loading />
       );
     }
     return (

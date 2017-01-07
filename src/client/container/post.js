@@ -6,12 +6,16 @@ import { Link } from 'react-router';
 
 import { load } from '../action/data';
 
+import Loading from './loading';
 import NotFound from './notFound';
 import PostCard from '../component/postCard';
 
 class PostView extends Component {
   componentWillMount() {
     this.props.load('postEntries', this.props.params.id);
+  }
+  componentWillReceiveProps(nextProps) {
+    nextProps.load('postEntries', nextProps.params.id);
   }
   render() {
     const { postEntries, params } = this.props;
@@ -23,12 +27,15 @@ class PostView extends Component {
     }
     if (post == null) {
       return (
-        <div>Loading...</div>
+        <Loading />
       );
     }
     return (
       <div className='post-view'>
         <PostCard post={post} full />
+        { post.layout !== 'page' && (
+          <Link to='/' className='back'>Back to list</Link>
+        )}
       </div>
     );
   }
