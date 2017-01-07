@@ -2,17 +2,17 @@ import generate from './generate';
 import separate from './separate';
 import watch from 'watch';
 
-export default function server(src) {
+export default function server(site, src) {
   let data = {};
   async function regenerate() {
     console.log('Rebuilding...');
-    let metadata = await generate(src);
+    let metadata = await generate(site, src);
     data = separate(metadata);
   }
   watch.watchTree(src, regenerate);
 
   // Serve on-memory
-  return (req, res, next) => {
+  let output = (req, res, next) => {
     let { path, method } = req;
     if (method !== 'GET') return next();
     let match = /\/(.+)\.json$/.exec(path);
@@ -21,4 +21,6 @@ export default function server(src) {
     if (data[url] != null) res.json(data[url]);
     else next();
   };
+  output.getMetadata = () => data;
+  return output;
 }

@@ -1,0 +1,23 @@
+doctype xml
+
+mixin objTree(obj)
+  each val, index in obj
+    if index === 'link'
+      link&attributes(val)
+    else if typeof val === 'string'
+      #{index}= val
+    else
+      #{index}
+        +objTree(val)
+
+feed(xmlns='http://www.w3.org/2005/Atom')
+  +objTree(site)
+  each post in posts
+    entry
+      id= post.id
+      link(href=`${site.link.href}${post.id}`)
+      summary(type='html')= post.briefHTML
+      title= post.title
+      updated= post.date.toISOString()
+      each tag in post.tags
+        category(term=tag)/

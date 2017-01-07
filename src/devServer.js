@@ -8,11 +8,19 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
 
+import renderAtom from './renderer/atom';
+
 let webpackCompiler = webpack(webpackConfig);
 
 let app = express();
-app.use('/metadata', devServer(config.source),
+let metadata = devServer(config.site, config.source);
+app.use('/metadata', metadata,
   (req, res) => res.sendStatus(404));
+
+app.get('/atom.xml', (req, res) => {
+  res.send(renderAtom(metadata.getMetadata()));
+});
+
 app.use(webpackDevMiddleware(webpackCompiler, {
   publicPath: webpackConfig.output.publicPath,
   serverSideRender: true,

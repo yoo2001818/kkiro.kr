@@ -2,6 +2,7 @@
 // loaded by client code.
 export default {
   _self: false,
+  site: 'site',
   tags: 'tags',
   posts: 'posts',
   postEntries: {

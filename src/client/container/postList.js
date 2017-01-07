@@ -17,7 +17,9 @@ class PostListView extends Component {
       );
     }
     return (
-      <PostList posts={posts} />
+      <div className='post-list-view'>
+        <PostList posts={posts} />
+      </div>
     );
   }
 }

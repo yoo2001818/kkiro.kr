@@ -12,14 +12,17 @@ function generateSlug(metadata) {
 }
 
 // Actually, this whole code should be provided by end user
-export default async function generate(src) {
+export default async function generate(site, src) {
   let files = await glob(path.resolve(src, '**/*.md'));
+  let lastUpdated = 0;
 
   let postsFull = await Promise.all(files.map(async file => {
     const data = await fs.readFile(file, 'utf-8');
     const content = frontMatter(data);
     let metadata = content.attributes;
     metadata.date = new Date(metadata.date);
+    let timestamp = metadata.date.getTime();
+    if (lastUpdated < timestamp) lastUpdated = timestamp;
     if (metadata.tags != null) {
       metadata.tags = metadata.tags.split(/,\s*/);
     } else {
@@ -63,6 +66,9 @@ export default async function generate(src) {
     }
   }
   let tags = Object.keys(tagEntries);
-  let output = { postEntries, posts, tagEntries, tags };
+  site = Object.assign({}, site, {
+    updated: new Date(lastUpdated).toISOString()
+  });
+  let output = { postEntries, posts, tagEntries, tags, site };
   return output;
 }
