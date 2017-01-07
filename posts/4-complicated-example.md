@@ -42,9 +42,16 @@ This is complicated example of markdown rendering.
 # GitHub Flavored Markdown
 
 ```javascript
-function stuff() {
-  stuff();
+function stuff(arg) {
+  let foo = arg - 1;
+  if (foo > 0) {
+    return stuff(foo) + arg;
+  } else {
+    return 0;
+  }
 }
+
+console.log(53);
 ```
 
 It's a table! | Why?

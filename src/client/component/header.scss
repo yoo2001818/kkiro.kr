@@ -20,6 +20,9 @@ header {
       font-weight: normal;
       font-size: 1.6em;
       vertical-align: middle;
+      a {
+        color: $grey-100;
+      }
     }
     & > nav {
       display: inline-block;
@@ -33,7 +36,9 @@ header {
           display: inline-block;
           padding: 0 0.4em;
           font-size: 1.1em;
-          color: $green-300;
+          a {
+            color: $green-300;
+          }
         }
       }
     }

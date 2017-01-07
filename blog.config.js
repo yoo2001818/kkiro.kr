@@ -15,6 +15,11 @@ module.exports = {
     id: 'http://kkiro.kr/',
     link: {
       href: 'http://kkiro.kr/'
+    },
+    menu: {
+      About: '/about',
+      Tags: '/tags',
+      Resume: '/resume'
     }
   },
   source: path.resolve(__dirname, 'posts'),

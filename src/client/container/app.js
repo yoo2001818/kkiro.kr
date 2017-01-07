@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
+import Loading from './loading';
+
 import Header from '../component/header';
 import Footer from '../component/footer';
 
@@ -16,7 +18,7 @@ class App extends Component {
     const { site } = this.props;
     return (
       <div className='app'>
-        <Header title={site && site.title} />
+        <Header title={site && site.title} menu={site && site.menu} />
         <main>
           {this.props.children}
         </main>

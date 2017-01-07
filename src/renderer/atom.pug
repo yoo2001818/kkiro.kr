@@ -1,17 +1,19 @@
 doctype xml
 
-mixin objTree(obj)
+mixin objTree(obj, allowed)
   each val, index in obj
-    if index === 'link'
+    - let isAllowed = allowed === false || allowed.indexOf(index) !== -1
+    if !isAllowed
+    else if index === 'link'
       link&attributes(val)
     else if typeof val === 'string'
       #{index}= val
     else
       #{index}
-        +objTree(val)
+        +objTree(val, false)
 
 feed(xmlns='http://www.w3.org/2005/Atom')
-  +objTree(site)
+  +objTree(site, 'title,subtitle,rights,author,icon,id,link'.split(','))
   each post in posts
     entry
       id= post.id
