@@ -5,10 +5,14 @@ import { Router, browserHistory,
 import { Provider } from 'react-redux';
 import { useScroll } from 'react-router-scroll';
 
+import metadataClient from './util/metadataClient';
+import metadataMiddleware from './middleware/metadata';
 import createStore from './store';
 import routes from './routes';
 
-let store = createStore();
+let store = createStore(undefined, [
+  metadataMiddleware(metadataClient)
+]);
 
 let scrollMiddleware = useScroll((prevRouterProps, {routes, location}) => {
   if (routes.find(a => a.ignoreScrollBehavior)) return false;

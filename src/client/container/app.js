@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
-import Loading from './loading';
-
 import Header from '../component/header';
 import Footer from '../component/footer';
 
