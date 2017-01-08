@@ -42,3 +42,4 @@ dist/
 public/
 webpack-assets.json
 webpack-assets-by-chunkname.json
+lib/

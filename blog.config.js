@@ -19,8 +19,7 @@ module.exports = {
     },
     menu: {
       About: '/about',
-      Tags: '/tags',
-      Resume: '/resume'
+      Tags: '/tags'
     },
     language: 'en-US'
   },

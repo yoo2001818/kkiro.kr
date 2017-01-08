@@ -15,6 +15,10 @@
   "bugs": {
     "url": "https://github.com/yoo2001818/react-blog/issues"
   },
+  "scripts": {
+    "start": "node index.js",
+    "build": "babel src -d lib --copy-files"
+  },
   "homepage": "https://github.com/yoo2001818/react-blog#readme",
   "dependencies": {
     "babel-preset-env": "^1.1.4",
@@ -52,6 +56,7 @@
     "webpack-isomorphic-tools": "^2.6.5"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-react": "^6.16.0",
