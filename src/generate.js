@@ -79,7 +79,7 @@ export default async function generate(config, noWebpack) {
   for (let link of links) {
     // This is only renderer that runs asynchronusly
     let result = await renderReact(link, files, webpackConfig.output.publicPath,
-      assetsByChunkName);
+      assetsByChunkName, config.footer);
     // Save each file to the result
     let dir = path.resolve(config.output, link.slice(1));
     // Create directory...

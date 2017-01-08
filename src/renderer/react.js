@@ -12,7 +12,7 @@ import metadataMiddleware from '../client/middleware/metadata';
 import metadataServer from '../client/util/metadataServer';
 
 export default function renderReact(link, files, publicPath,
-  assetsByChunkName
+  assetsByChunkName, footer
 ) {
   return new Promise((resolve, reject) => {
     let store = createStore(undefined, [
@@ -64,6 +64,7 @@ export default function renderReact(link, files, publicPath,
       .map(path => `<script src="${publicPath + path}"></script>`)
       .join('')
     }
+    ${footer}
   </body>
 </html>
     `;

@@ -1,4 +1,5 @@
 var path = require('path');
+var fs = require('fs');
 
 module.exports = {
   site: {
@@ -23,6 +24,7 @@ module.exports = {
     },
     language: 'en-US'
   },
+  footer: fs.readFileSync(path.resolve(__dirname, 'footer.txt'), 'utf-8'),
   source: path.resolve(__dirname, 'posts'),
   media: path.resolve(__dirname, 'media'),
   output: path.resolve(__dirname, 'public')

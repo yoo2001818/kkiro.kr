@@ -45,3 +45,4 @@ webpack-assets-by-chunkname.json
 lib/
 
 publish.sh
+footer.txt
