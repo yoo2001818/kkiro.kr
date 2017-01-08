@@ -10,7 +10,7 @@ import PostList from '../component/postList';
 
 class PostListView extends LoadComponent {
   load(props) {
-    props.load('postEntries', props.params.id);
+    props.load('posts');
   }
   render() {
     const { posts } = this.props;
