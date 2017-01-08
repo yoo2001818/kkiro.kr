@@ -1,29 +1,21 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, browserHistory,
+  applyRouterMiddleware } from 'react-router';
 import { Provider } from 'react-redux';
+import { useScroll } from 'react-router-scroll';
 
 import createStore from './store';
-
-import App from './container/app';
-import PostList from './container/postList';
-import Post from './container/post';
-import TagList from './container/tagList';
-import Tag from './container/tag';
-import NotFound from './container/notFound';
+import routes from './routes';
 
 let store = createStore();
 
 render((
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path='/' component={App}>
-        <IndexRoute component={PostList} />
-        <Route path='tags' component={TagList} />
-        <Route path='tags/:id' component={Tag} />
-        <Route path=':id' component={Post} />
-        <Route path='*' component={NotFound} />
-      </Route>
-    </Router>
+    <Router
+      history={browserHistory}
+      render={applyRouterMiddleware(useScroll())}
+      routes={routes}
+    />
   </Provider>
 ), document.getElementById('root'));

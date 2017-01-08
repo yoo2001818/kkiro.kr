@@ -3,14 +3,16 @@ import './postCard.scss';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import classNames from 'classnames';
+
 import formatDate from '../../util/formatDate';
 import PostRenderer from './postRenderer';
 
 export default class PostCard extends Component {
   render() {
-    const { post, full } = this.props;
+    const { post, full, truncated } = this.props;
     return (
-      <article className='post-card'>
+      <article className={classNames('post-card', { truncated })}>
         <div className='header'>
           <h1>
             <Link to={`/${post.id}`}>{post.title}</Link>
@@ -31,14 +33,16 @@ export default class PostCard extends Component {
             </ul>
           </div>
         </div>
-        <div className='content'>
-          <PostRenderer post={post} href={!full && `/${post.id}`}/>
-          { post.more && !full && (
-            <div className='more'>
-              <Link to={`/${post.id}#hr`}>Read more...</Link>
-            </div>
-          )}
-        </div>
+        { !truncated && (
+          <div className='content'>
+            <PostRenderer post={post} full />
+            { post.more && !full && (
+              <div className='more'>
+                <Link to={`/${post.id}#hr`}>Read more...</Link>
+              </div>
+            )}
+          </div>
+        )}
       </article>
     );
   }
@@ -46,5 +50,6 @@ export default class PostCard extends Component {
 
 PostCard.propTypes = {
   post: PropTypes.object,
-  full: PropTypes.bool
+  full: PropTypes.bool,
+  truncated: PropTypes.bool
 };

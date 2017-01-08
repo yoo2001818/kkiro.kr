@@ -21,10 +21,11 @@ const options = {
 
 export default class PostRenderer extends Component {
   render() {
-    const { post } = this.props;
+    const { post, full } = this.props;
     // I feel sorry for this
     // TODO Change this to react-markdown as time passes
     renderer.hrCount = 0;
+    renderer.full = full;
     let content = marked(post.content || post.brief, options);
     return (
       <div className='post-renderer' dangerouslySetInnerHTML={{
@@ -35,5 +36,6 @@ export default class PostRenderer extends Component {
 }
 
 PostRenderer.propTypes = {
-  post: PropTypes.object
+  post: PropTypes.object,
+  full: PropTypes.bool
 };

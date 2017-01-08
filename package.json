@@ -18,6 +18,7 @@
   "homepage": "https://github.com/yoo2001818/react-blog#readme",
   "dependencies": {
     "babel-preset-env": "^1.1.4",
+    "classnames": "^2.2.5",
     "express": "^4.14.0",
     "front-matter": "^2.1.1",
     "fs-promise": "^1.0.0",
@@ -32,6 +33,7 @@
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
     "react-router": "^3.0.0",
+    "react-router-scroll": "^0.4.1",
     "redux": "^3.6.0",
     "redux-actions": "^1.2.0",
     "redux-logger": "^2.7.4",

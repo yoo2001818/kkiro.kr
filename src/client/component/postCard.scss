@@ -43,6 +43,11 @@
       }
     }
   }
+  &.truncated > .header {
+    & > .extra {
+      border-bottom: none;
+    }
+  }
   & > .content {
     margin: 0.6em 0 1em;
     padding: 0 0.5em;
