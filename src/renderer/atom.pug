@@ -1,19 +1,29 @@
 doctype xml
-
 mixin objTree(obj, allowed)
   each val, index in obj
-    - let isAllowed = allowed === false || allowed.indexOf(index) !== -1
+    - let isAllowed = allowed === false || allowed[index] != null
+    - let key = allowed === false ? index : allowed[index]
     if !isAllowed
     else if index === 'link'
       link&attributes(val)
     else if typeof val === 'string'
-      #{index}= val
+      #{key}= val
     else
-      #{index}
+      #{key}
         +objTree(val, false)
 
-feed(xmlns='http://www.w3.org/2005/Atom')
-  +objTree(site, 'title,subtitle,rights,author,icon,id,link'.split(','))
+feed(xmlns='http://www.w3.org/2005/Atom', lang=site.language)
+  +objTree(site, {
+    title: 'title',
+    description: 'subtitle',
+    copyright: 'rights',
+    author: 'author',
+    icon: 'icon',
+    id: 'id',
+    link: 'link',
+    updated: 'updated',
+    generator: 'generator'
+  })
   each post in posts
     entry
       id= post.id
@@ -22,5 +32,8 @@ feed(xmlns='http://www.w3.org/2005/Atom')
       title= post.title
       published= post.published.toISOString()
       updated= post.updated.toISOString()
+      if post.author || site.author
+        author
+          +objTree(post.author || site.author, false)
       each tag in post.tags
         category(term=tag)/

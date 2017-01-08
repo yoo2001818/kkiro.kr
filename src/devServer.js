@@ -9,6 +9,7 @@ import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
 
 import renderAtom from './renderer/atom';
+import renderRSS from './renderer/rss';
 
 let webpackCompiler = webpack(webpackConfig);
 
@@ -19,6 +20,10 @@ app.use('/metadata', metadata,
 
 app.get('/atom.xml', (req, res) => {
   res.type('xml').send(renderAtom(metadata.getMetadata()));
+});
+
+app.get('/rss.xml', (req, res) => {
+  res.type('xml').send(renderRSS(metadata.getMetadata()));
 });
 
 app.use(webpackDevMiddleware(webpackCompiler, {

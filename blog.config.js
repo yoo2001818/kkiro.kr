@@ -3,8 +3,8 @@ var path = require('path');
 module.exports = {
   site: {
     title: 'kkiro.kr',
-    subtitle: 'A blog',
-    rights: '&copy; Kkiro. All rights reserved.',
+    description: 'A blog',
+    copyright: '&copy; Kkiro. All rights reserved.',
     // This is specified in Atom format.
     author: {
       name: 'Kkiro',
@@ -20,7 +20,8 @@ module.exports = {
       About: '/about',
       Tags: '/tags',
       Resume: '/resume'
-    }
+    },
+    language: 'en-US'
   },
   source: path.resolve(__dirname, 'posts'),
   metadata: path.resolve(__dirname, 'public', 'metadata')

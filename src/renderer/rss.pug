@@ -1,0 +1,33 @@
+doctype xml
+-
+  function formatAuthor(author) {
+    return `${author.email} (${author.name})`;
+  }
+
+rss(version='2.0')
+  channel
+    title= site.title
+    link= site.link.href
+    description= site.description
+    if site.language
+      language= site.language
+    if site.copyright
+      copyright= site.copyright
+    pubDate= site.updated
+    lastBuildDate= site.updated
+    if site.generator
+      generator= site.generator
+    if site.author
+      managingEditor= formatAuthor(site.author)
+      webMaster= formatAuthor(site.author)
+  each post in posts
+    item
+      guid= post.id
+      title= post.title
+      link= `${site.link.href}${post.id}`
+      description= post.briefHTML
+      if post.author || site.author
+        author= formatAuthor(post.author || site.author)
+      pubDate= post.published.toISOString()
+      each tag in post.tags
+        category= tag

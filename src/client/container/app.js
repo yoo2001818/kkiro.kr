@@ -21,7 +21,7 @@ class App extends LoadComponent {
         <main>
           {this.props.children}
         </main>
-        <Footer copyright={site && site.rights}/>
+        <Footer copyright={site && site.copyright}/>
       </div>
     );
   }
