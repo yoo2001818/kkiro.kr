@@ -46,9 +46,9 @@ class PostView extends LoadComponent {
             { name: 'description', content: post.title },
             { property: 'og:title', content: post.title },
             { property: 'og:type', content: 'article' },
-            { property: 'og:image', content: post.image ||
-              (site && site.image) },
-            { property: 'og:url', content: (site && site.link.href) + post.id },
+            { property: 'og:image', content: post.image },
+            { property: 'og:url', content:
+              (site && site.link.href) + post.id + '/' },
             // TODO This doesn't seem right
             { property: 'og:description', content: post.brief },
             { property: 'og:locale', content: (post.language ||

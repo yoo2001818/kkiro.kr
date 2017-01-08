@@ -29,7 +29,7 @@ class TagList extends LoadComponent {
         <ul className='tag-list'>
           { tags.map((v, i) => (
             <li key={i}>
-              <Link to={`/tags/${v.name}`} className='name'>
+              <Link to={`/tags/${v.name}/`} className='name'>
                 {v.name}
               </Link>
               <span className='length'>{v.length}</span>

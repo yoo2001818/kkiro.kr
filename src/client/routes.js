@@ -12,9 +12,9 @@ import NotFound from './container/notFound';
 export default (
   <Route path='/' component={App}>
     <IndexRoute component={PostList} />
-    <Route path='tags' component={TagList} />
-    <Route path='tags/:id' component={Tag} />
-    <Route path=':id' component={Post} />
+    <Route path='tags/' component={TagList} />
+    <Route path='tags/:id/' component={Tag} />
+    <Route path=':id/' component={Post} />
     <Route path='*' component={NotFound} />
   </Route>
 );

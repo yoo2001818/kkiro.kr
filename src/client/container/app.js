@@ -38,7 +38,6 @@ class App extends LoadComponent {
             { property: 'og:title', content: site && site.title },
             { property: 'og:description', content: site && site.description },
             { property: 'og:type', content: 'website' },
-            { property: 'og:image', content: site && site.image },
             { property: 'og:url', content: site && site.link.href },
             { property: 'og:locale', content: site &&
               site.language.replace(/-/g, '_') }

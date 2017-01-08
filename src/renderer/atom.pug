@@ -27,7 +27,7 @@ feed(xmlns='http://www.w3.org/2005/Atom', lang=site.language)
   each post in posts
     entry
       id= post.id
-      link(href=`${site.link.href}${post.id}`)
+      link(href=`${site.link.href}${post.id}/`)
       summary(type='html')= post.briefHTML
       title= post.title
       published= post.published.toISOString()

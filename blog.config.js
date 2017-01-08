@@ -18,8 +18,8 @@ module.exports = {
       href: 'http://kkiro.kr/'
     },
     menu: {
-      About: '/about',
-      Tags: '/tags'
+      About: '/about/',
+      Tags: '/tags/'
     },
     language: 'en-US'
   },
