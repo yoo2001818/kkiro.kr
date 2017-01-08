@@ -54,15 +54,15 @@ class PostView extends LoadComponent {
             { property: 'og:description', content: post.brief },
             { property: 'og:locale', content: (post.language ||
               (site && site.language)).replace(/-/g, '_') },
-            { property: 'og:article:published_time', content:
+            { property: 'article:published_time', content:
               new Date(post.published).toISOString() },
-            { property: 'og:article:modified_time', content:
+            { property: 'article:modified_time', content:
               new Date(post.updated).toISOString() },
-            { property: 'og:article:author:username', content:
+            { property: 'article:author:username', content:
               (post.author && post.author.name) ||
               (site.author && site.author.name) },
           ].concat(post.tags.map(tag => ({
-            property: 'og:article:tag', content: tag
+            property: 'article:tag', content: tag
           })))}
         />
         <PostCard post={post} full />
