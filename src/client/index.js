@@ -10,11 +10,24 @@ import routes from './routes';
 
 let store = createStore();
 
+let scrollMiddleware = useScroll((prevRouterProps, {routes, location}) => {
+  if (routes.find(a => a.ignoreScrollBehavior)) return false;
+  if (routes.find(a => a.scrollToTop)) return [0, 0];
+  if (location.hash !== '') {
+    setTimeout(() => {
+      let node = document.querySelector(`a[name="${location.hash.slice(1)}"]`);
+      if (node) node.scrollIntoView();
+    }, 0);
+    return false;
+  }
+  return true;
+});
+
 render((
   <Provider store={store}>
     <Router
       history={browserHistory}
-      render={applyRouterMiddleware(useScroll())}
+      render={applyRouterMiddleware(scrollMiddleware)}
       routes={routes}
     />
   </Provider>

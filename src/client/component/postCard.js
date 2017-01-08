@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import classNames from 'classnames';
 
-import formatDate from '../../util/formatDate';
+import formatDate, { formatDateTime } from '../../util/formatDate';
 import PostRenderer from './postRenderer';
 
 export default class PostCard extends Component {
@@ -19,8 +19,8 @@ export default class PostCard extends Component {
           </h1>
           <div className='extra'>
             <span className='date' title={
-              'Updated: ' + new Date(post.updated).toLocaleString() +
-              '\nPublished: ' + new Date(post.published).toLocaleString()
+              'Updated: ' + formatDateTime(new Date(post.updated)) +
+              '\nPublished: ' + formatDateTime(new Date(post.published))
             }>
               {formatDate(new Date(post.published))}
             </span>
@@ -35,7 +35,7 @@ export default class PostCard extends Component {
         </div>
         { !truncated && (
           <div className='content'>
-            <PostRenderer post={post} full />
+            <PostRenderer post={post} full={full} />
             { post.more && !full && (
               <div className='more'>
                 <Link to={`/${post.id}#hr`}>Read more...</Link>

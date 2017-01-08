@@ -3,15 +3,27 @@ import './postRenderer.scss';
 import React, { Component, PropTypes } from 'react';
 import marked from 'marked';
 import highlight from 'highlight.js';
+import slug from 'slug';
 
 let renderer = new marked.Renderer();
 
-renderer.hr = function() {
+renderer.hr = function () {
   if (!this.hrCount) {
     this.hrCount = true;
     return '<a name="hr"><hr /></a>';
   }
   return '<hr />';
+};
+
+renderer.heading = function (text, level) {
+  if (!this.full) return `<h${level}>${text}</h${level}>`;
+  let slugValue = slug(text, { lower:true });
+  return `
+    <h${level}>
+      <a name="${slugValue}" class="anchor" href="#${slugValue}"></a>
+      ${text}
+    </h${level}>
+  `;
 };
 
 const options = {

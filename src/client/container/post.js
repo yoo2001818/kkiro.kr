@@ -17,6 +17,16 @@ class PostView extends Component {
   componentWillReceiveProps(nextProps) {
     nextProps.load('postEntries', nextProps.params.id);
   }
+  componentDidUpdate() {
+    if (location.hash !== '') {
+      setTimeout(() => {
+        let node = document.querySelector(
+          `a[name="${location.hash.slice(1)}"]`);
+        if (node) node.scrollIntoView();
+      }, 0);
+      return false;
+    }
+  }
   render() {
     const { postEntries, params } = this.props;
     const post = postEntries && postEntries[params.id];
