@@ -58,7 +58,7 @@ class PostView extends LoadComponent {
               new Date(post.published).toISOString() },
             { property: 'article:modified_time', content:
               new Date(post.updated).toISOString() },
-            { property: 'article:author:username', content:
+            { property: 'article:author', content:
               (post.author && post.author.name) ||
               (site.author && site.author.name) },
           ].concat(post.tags.map(tag => ({
