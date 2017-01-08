@@ -1,0 +1,9 @@
+export { default as javascript } from 'highlight.js/lib/languages/javascript';
+export { default as css } from 'highlight.js/lib/languages/css';
+export { default as scss } from 'highlight.js/lib/languages/scss';
+export { default as bash } from 'highlight.js/lib/languages/bash';
+export { default as scheme } from 'highlight.js/lib/languages/scheme';
+export { default as rust } from 'highlight.js/lib/languages/rust';
+export { default as xml } from 'highlight.js/lib/languages/xml';
+export { default as yaml } from 'highlight.js/lib/languages/yaml';
+export { default as markdown } from 'highlight.js/lib/languages/markdown';

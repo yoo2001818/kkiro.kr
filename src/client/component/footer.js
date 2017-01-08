@@ -13,6 +13,7 @@ export default class Footer extends Component {
           }} />
           <p className='refs'>
             <a href='/atom.xml'>Atom</a>
+            <a href='/rss.xml'>RSS</a>
           </p>
         </div>
       </footer>

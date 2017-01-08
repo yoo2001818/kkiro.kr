@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -17,15 +18,24 @@ module.exports = {
   resolve: {
     root: path.join(__dirname, 'src'),
     extensions: ['', '.js'],
-    modulesDirectories: ['node_modules']
+    modulesDirectories: ['node_modules'],
+    alias: PRODUCTION ? {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat'
+    } : {}
   },
   // devtool: 'source-map',
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.IgnorePlugin(/unicode\/category\/So/)
   ]
     .concat(PRODUCTION ? [
-      new ExtractTextPlugin('bundle.css')
+      new webpack.EnvironmentPlugin(['NODE_ENV']),
+      new ExtractTextPlugin('bundle.css'),
+      new LodashModuleReplacementPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.OccurenceOrderPlugin()
     ] : [
       new webpack.HotModuleReplacementPlugin()
     ]),

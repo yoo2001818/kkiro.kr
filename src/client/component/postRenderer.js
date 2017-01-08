@@ -2,8 +2,8 @@ import './postRenderer.scss';
 
 import React, { Component, PropTypes } from 'react';
 import marked from 'marked';
-import highlight from 'highlight.js';
 import slug from 'slug';
+import highlight from '../util/highlight';
 
 let renderer = new marked.Renderer();
 

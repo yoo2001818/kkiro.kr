@@ -5,14 +5,14 @@ import createLogger from 'redux-logger';
 
 import reducers from '../reducer';
 
-let logger = createLogger();
+let logger = process.env.NODE_ENV !== 'production' ? createLogger() : [];
 
 export default function configureStore(initialState, appendage = []) {
   const reducer = combineReducers(reducers);
-  const middlewares = applyMiddleware.apply(null, appendage.concat([
+  const middlewares = applyMiddleware.apply(null, appendage.concat(
     thunkMiddleware,
     logger
-  ]));
+  ));
 
   let createStoreWithMiddleware = middlewares(createStore);
 

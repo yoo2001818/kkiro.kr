@@ -8,7 +8,7 @@ import { load } from '../action/data';
 import Loading from './loading';
 
 import LoadComponent from '../component/loadComponent';
-import { Link } from 'react-router';
+import Link from 'react-router/lib/Link';
 
 class TagList extends LoadComponent {
   load(props) {
