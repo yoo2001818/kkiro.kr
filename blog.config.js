@@ -25,5 +25,6 @@ module.exports = {
     language: 'en-US'
   },
   source: path.resolve(__dirname, 'posts'),
+  media: path.resolve(__dirname, 'media'),
   metadata: path.resolve(__dirname, 'public', 'metadata')
 };

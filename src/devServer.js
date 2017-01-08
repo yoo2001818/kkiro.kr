@@ -1,4 +1,5 @@
 import express from 'express';
+import serveStatic from 'serve-static';
 
 import config from '../blog.config';
 import devServer from './metagen/devServer';
@@ -17,6 +18,7 @@ let app = express();
 let metadata = devServer(config.site, config.source);
 app.use('/metadata', metadata,
   (req, res) => res.sendStatus(404));
+app.use('/media', serveStatic(config.media));
 
 app.get('/atom.xml', (req, res) => {
   res.type('xml').send(renderAtom(metadata.getMetadata()));
