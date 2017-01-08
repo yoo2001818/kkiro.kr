@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
   entry: ['client']
     .concat(!PRODUCTION ? 'webpack-hot-middleware/client?overlay=true' : []),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public', 'assets'),
     publicPath: '/assets/',
     filename: 'bundle.js',
     chunkFilename: '[id].js',
@@ -20,14 +21,16 @@ module.exports = {
     extensions: ['', '.js'],
     modulesDirectories: ['node_modules'],
     alias: PRODUCTION ? {
-      react: 'preact-compat',
-      'react-dom': 'preact-compat'
+      // react: 'preact-compat',
+      // 'react-dom': 'preact-compat'
     } : {}
   },
   // devtool: 'source-map',
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new webpack.IgnorePlugin(/unicode\/category\/So/)
+    new webpack.IgnorePlugin(/unicode\/category\/So/),
+    new WebpackIsomorphicToolsPlugin(
+      require('./webpack-isomorphic-tools.config'))
   ]
     .concat(PRODUCTION ? [
       new webpack.EnvironmentPlugin(['NODE_ENV']),
@@ -65,15 +68,11 @@ module.exports = {
           'style!css!sass'
       },
       {
-        test: /(\.vert|\.frag|\.obj|\.mtl|\.dae)$/i,
-        loader: 'raw'
-      },
-      {
         test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,
         loader: 'url?limit=10240'
       },
       {
-        test: /\.(png|jpe?g|gif|tiff|mp4|mkv|webm)?$/,
+        test: /\.(png|jpe?g|gif|tiff)?$/,
         loader: 'file'
       }
     ]

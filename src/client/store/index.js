@@ -5,7 +5,8 @@ import createLogger from 'redux-logger';
 
 import reducers from '../reducer';
 
-let logger = process.env.NODE_ENV !== 'production' ? createLogger() : [];
+let logger = (process.env.NODE_ENV !== 'production' &&
+  typeof window !== 'undefined') ? createLogger() : [];
 
 export default function configureStore(initialState, appendage = []) {
   const reducer = combineReducers(reducers);

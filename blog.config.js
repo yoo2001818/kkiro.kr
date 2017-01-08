@@ -26,5 +26,5 @@ module.exports = {
   },
   source: path.resolve(__dirname, 'posts'),
   media: path.resolve(__dirname, 'media'),
-  metadata: path.resolve(__dirname, 'public', 'metadata')
+  output: path.resolve(__dirname, 'public')
 };

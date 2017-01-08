@@ -11,7 +11,7 @@ import metadataMiddleware from './middleware/metadata';
 import createStore from './store';
 import routes from './routes';
 
-let store = createStore(undefined, [
+let store = createStore(window.__INITIAL_STATE__, [
   metadataMiddleware(metadataClient)
 ]);
 

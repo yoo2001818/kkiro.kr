@@ -1,4 +1,8 @@
 import config from './blog.config.js';
-import metagen from './src/metagen';
+import generate from './src/generate';
 
-metagen(config.site, config.source, config.metadata);
+generate(config)
+.catch(e => {
+  console.log(e.stack);
+  throw e;
+});
