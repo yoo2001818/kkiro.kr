@@ -14,6 +14,7 @@ export default class Footer extends Component {
           <p className='refs'>
             <a href='/atom.xml'>Atom</a>
             <a href='/rss.xml'>RSS</a>
+            <a href='http://github.com/yoo2001818/kkiro.kr'>GitHub</a>
           </p>
         </div>
       </footer>

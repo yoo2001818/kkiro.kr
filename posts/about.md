@@ -6,4 +6,4 @@ published: 2016/1/3
 hidden: true
 ---
 
-Hello? I'm uh... whatever.
+TODO. I'll finish it as soon as possible.
