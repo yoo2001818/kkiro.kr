@@ -16,7 +16,7 @@ export const metadataMiddleware = client => store => next => action => {
   if (!action.payload[METADATA]) return next(action);
   const { keys } = action.payload;
   let state = store.getState();
-  let { complete, loading } = state.load;
+  let { completed, loading } = state.load;
   let subSchema = schema;
   let output = [];
   function fetchResource(i) {
@@ -31,7 +31,7 @@ export const metadataMiddleware = client => store => next => action => {
     if (typeof resId !== 'string') {
       throw new Error('Resource ID must be string');
     }
-    if (complete.indexOf(resId) === -1 && loading.indexOf(resId) === -1) {
+    if (completed[resId] !== true && loading.indexOf(resId) === -1) {
       let args = keys.slice(0, i + 1);
       store.dispatch(fetchPending(null, resId));
       output.push(client(resId)

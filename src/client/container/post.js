@@ -1,21 +1,19 @@
 import './post.scss';
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { load } from '../action/data';
 
+import LoadComponent from '../component/loadComponent';
 import Loading from './loading';
 import NotFound from './notFound';
 import PostCard from '../component/postCard';
 
-class PostView extends Component {
-  componentWillMount() {
-    this.props.load('postEntries', this.props.params.id);
-  }
-  componentWillReceiveProps(nextProps) {
-    nextProps.load('postEntries', nextProps.params.id);
+class PostView extends LoadComponent {
+  load(props) {
+    props.load('postEntries', props.params.id);
   }
   componentDidUpdate() {
     if (location.hash !== '') {

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../action/data';
@@ -6,14 +6,12 @@ import { load } from '../action/data';
 import NotFound from './notFound';
 import Loading from './loading';
 
+import LoadComponent from '../component/loadComponent';
 import PostList from '../component/postList';
 
-class Tag extends Component {
-  componentWillMount() {
-    this.props.load('tagEntries', this.props.params.id);
-  }
-  componentWillReceiveProps(nextProps) {
-    nextProps.load('tagEntries', nextProps.params.id);
+class Tag extends LoadComponent {
+  load(props) {
+    props.load('tagEntries', props.params.id);
   }
   render() {
     const { tagEntries, params } = this.props;

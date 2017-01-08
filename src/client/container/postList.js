@@ -1,15 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
 import Loading from './loading';
 
+import LoadComponent from '../component/loadComponent';
 import PostList from '../component/postList';
 
-class PostListView extends Component {
-  componentWillMount() {
-    this.props.load('posts');
+class PostListView extends LoadComponent {
+  load(props) {
+    props.load('postEntries', props.params.id);
   }
   render() {
     const { posts } = this.props;

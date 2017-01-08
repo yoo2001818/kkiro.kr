@@ -1,16 +1,17 @@
 import './app.scss';
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../action/data';
 
+import LoadComponent from '../component/loadComponent';
 import Header from '../component/header';
 import Footer from '../component/footer';
 
-class App extends Component {
-  componentWillMount() {
-    this.props.load('site');
+class App extends LoadComponent {
+  load(props) {
+    props.load('site');
   }
   render() {
     const { site } = this.props;
