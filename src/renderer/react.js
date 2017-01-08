@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import { renderToString } from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
 import serialize from 'serialize-javascript';
@@ -11,7 +11,9 @@ import createStore from '../client/store';
 import metadataMiddleware from '../client/middleware/metadata';
 import metadataServer from '../client/util/metadataServer';
 
-export default function renderReact(link, files, publicPath, stats) {
+export default function renderReact(link, files, publicPath,
+  assetsByChunkName
+) {
   return new Promise((resolve, reject) => {
     let store = createStore(undefined, [
       metadataMiddleware(metadataServer(files))
@@ -29,12 +31,11 @@ export default function renderReact(link, files, publicPath, stats) {
           </Provider>
         );
         // FIXME: We have to render twice to make it operate properly
-        renderToString(tree);
+        renderToStaticMarkup(tree);
         Helmet.rewind();
-        let result = renderToString(tree);
+        let result = renderToStaticMarkup(tree);
         let head = Helmet.rewind();
         // OK, then wrap the data into HTML
-        const assetsByChunkName = stats.toJson().assetsByChunkName;
         let assets = assetsByChunkName.main;
         if (!Array.isArray(assets)) assets = [assets];
         let html = `<!doctype html>

@@ -40,3 +40,5 @@ yarn.lock
 
 dist/
 public/
+webpack-assets.json
+webpack-assets-by-chunkname.json

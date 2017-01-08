@@ -21,8 +21,8 @@ module.exports = {
     extensions: ['', '.js'],
     modulesDirectories: ['node_modules'],
     alias: PRODUCTION ? {
-      // react: 'preact-compat',
-      // 'react-dom': 'preact-compat'
+      react: 'preact-compat',
+      'react-dom': 'preact-compat'
     } : {}
   },
   // devtool: 'source-map',
