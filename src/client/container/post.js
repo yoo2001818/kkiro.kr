@@ -6,6 +6,7 @@ import Link from 'react-router/lib/Link';
 
 import { load } from '../action/data';
 
+import Helmet from 'react-helmet';
 import LoadComponent from '../component/loadComponent';
 import Loading from './loading';
 import NotFound from './notFound';
@@ -26,7 +27,7 @@ class PostView extends LoadComponent {
     }
   }
   render() {
-    const { postEntries, params } = this.props;
+    const { postEntries, site, params } = this.props;
     const post = postEntries && postEntries[params.id];
     if (post === false) {
       return (
@@ -40,6 +41,29 @@ class PostView extends LoadComponent {
     }
     return (
       <div className='post-view'>
+        <Helmet title={post.title}
+          meta={[
+            { name: 'description', content: post.title },
+            { property: 'og:title', content: post.title },
+            { property: 'og:type', content: 'article' },
+            { property: 'og:image', content: post.image ||
+              (site && site.image) },
+            { property: 'og:url', content: (site && site.link.href) + post.id },
+            // TODO This doesn't seem right
+            { property: 'og:description', content: post.brief },
+            { property: 'og:locale', content: post.language ||
+              (site && site.language) },
+            { property: 'og:article:published_time', content:
+              new Date(post.published).toISOString() },
+            { property: 'og:article:modified_time', content:
+              new Date(post.updated).toISOString() },
+            { property: 'og:article:author:username', content:
+              (post.author && post.author.name) ||
+              (site.author && site.author.name) },
+          ].concat(post.tags.map(tag => ({
+            property: 'og:article:tag', content: tag
+          })))}
+        />
         <PostCard post={post} full />
         { post.layout !== 'page' && (
           <Link to='/' className='back'>Back to list</Link>
@@ -50,11 +74,13 @@ class PostView extends LoadComponent {
 }
 
 PostView.propTypes = {
+  site: PropTypes.object,
   postEntries: PropTypes.object,
   load: PropTypes.func,
   params: PropTypes.object
 };
 
 export default connect(state => ({
+  site: state.data && state.data.site,
   postEntries: state.data && state.data.postEntries
 }), { load })(PostView);

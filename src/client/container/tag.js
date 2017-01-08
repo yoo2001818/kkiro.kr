@@ -5,6 +5,7 @@ import { load } from '../action/data';
 
 import NotFound from './notFound';
 import Loading from './loading';
+import Helmet from 'react-helmet';
 
 import LoadComponent from '../component/loadComponent';
 import PostList from '../component/postList';
@@ -28,6 +29,7 @@ class Tag extends LoadComponent {
     }
     return (
       <div className='tag-view'>
+        <Helmet title={`Posts of tag '${params.id}'`} />
         <h1>Posts of tag '{params.id}'</h1>
         <PostList posts={tag} />
       </div>

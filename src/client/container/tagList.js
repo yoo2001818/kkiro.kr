@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { load } from '../action/data';
 
 import Loading from './loading';
+import Helmet from 'react-helmet';
 
 import LoadComponent from '../component/loadComponent';
 import Link from 'react-router/lib/Link';
@@ -23,6 +24,7 @@ class TagList extends LoadComponent {
     }
     return (
       <div className='tag-list-view'>
+        <Helmet title='Tag list' />
         <h1>Tags</h1>
         <ul className='tag-list'>
           { tags.map((v, i) => (

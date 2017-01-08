@@ -12,6 +12,7 @@ module.exports = {
       email: 'yoo2001818@gmail.com'
     },
     icon: 'http://kkiro.kr/favicon.ico',
+    image: 'http://kkiro.kr/favicon.ico',
     id: 'http://kkiro.kr/',
     link: {
       href: 'http://kkiro.kr/'
