@@ -3,8 +3,8 @@ var path = require('path');
 module.exports = {
   site: {
     title: 'kkiro.kr',
-    description: 'A blog',
-    copyright: '&copy; Kkiro. All rights reserved.',
+    description: 'Kkiro\'s personal blog',
+    copyright: 'Kkiro. All rights reserved.',
     // This is specified in Atom format.
     author: {
       name: 'Kkiro',
@@ -12,7 +12,7 @@ module.exports = {
       email: 'yoo2001818@gmail.com'
     },
     icon: 'http://kkiro.kr/favicon.ico',
-    image: 'http://kkiro.kr/favicon.ico',
+    image: 'http://kkiro.kr/media/logo.png',
     id: 'http://kkiro.kr/',
     link: {
       href: 'http://kkiro.kr/'

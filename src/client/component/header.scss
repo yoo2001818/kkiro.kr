@@ -3,7 +3,6 @@
 header {
   box-sizing: border-box;
   width: 100%;
-  height: $header-height;
   padding: 0 1em;
   line-height: $header-height;
 
@@ -39,6 +38,22 @@ header {
           a {
             color: $green-300;
           }
+        }
+      }
+    }
+    @media screen and (max-width: 25em) {
+      & > h1 {
+        display: block;
+      }
+      & > nav {
+        display: block;
+        line-height: 2.4em;
+        & > ul {
+          display: block;
+        }
+        & > ul > li {
+          display: block;
+          text-align: center;
         }
       }
     }

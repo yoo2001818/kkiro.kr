@@ -8,9 +8,9 @@ export default class Footer extends Component {
     return (
       <footer>
         <div className='content'>
-          <p className='copyright' dangerouslySetInnerHTML={{
-            __html: copyright
-          }} />
+          <p className='copyright'>
+            &copy; { copyright }
+          </p>
           <p className='refs'>
             <a href='/atom.xml'>Atom</a>
             <a href='/rss.xml'>RSS</a>

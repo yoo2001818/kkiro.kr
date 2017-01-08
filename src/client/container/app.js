@@ -40,7 +40,8 @@ class App extends LoadComponent {
             { property: 'og:type', content: 'website' },
             { property: 'og:image', content: site && site.image },
             { property: 'og:url', content: site && site.link.href },
-            { property: 'og:locale', content: site && site.language }
+            { property: 'og:locale', content: site &&
+              site.language.replace(/-/g, '_') }
           ]}
         />
         <Header title={site && site.title} menu={site && site.menu} />

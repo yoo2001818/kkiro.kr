@@ -55,3 +55,7 @@ fly then renders the page.
 RSS / Atom genrator changes the metadata into RSS / Atom XML file.
 Since React can't do XML rendering, I've used [pug](https://pugjs.org/)
 template engine to render them.
+
+# License
+The code itself is under MIT license, however, blog posts and media files
+doesn't have license (All rights reserved).

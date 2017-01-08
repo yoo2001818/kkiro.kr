@@ -51,8 +51,8 @@ class PostView extends LoadComponent {
             { property: 'og:url', content: (site && site.link.href) + post.id },
             // TODO This doesn't seem right
             { property: 'og:description', content: post.brief },
-            { property: 'og:locale', content: post.language ||
-              (site && site.language) },
+            { property: 'og:locale', content: (post.language ||
+              (site && site.language)).replace(/-/g, '_') },
             { property: 'og:article:published_time', content:
               new Date(post.published).toISOString() },
             { property: 'og:article:modified_time', content:
