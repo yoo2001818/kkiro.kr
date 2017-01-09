@@ -3,6 +3,7 @@ title: I've just started the blog
 published: 2017/01/09 00:13
 updated: 2017/01/09 00:13
 tags: blog
+comment: true
 ---
 Finally, after like 8 years, I've started a blog. (My website was under
 construction for 8 years. Really!)

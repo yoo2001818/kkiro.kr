@@ -5,6 +5,7 @@ updated: 2017/01/09 15:07
 tags: blog
 slug: 2017-01-09-ive-just-started-the-blog
 language: ko
+comment: true
 ---
 드디어 홈페이지 처음 만들고 8년 만에 블로그를 시작했다. (사실 8년동안 계속 공사중이라고만
 띄워놓긴 했다)

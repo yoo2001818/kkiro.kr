@@ -12,6 +12,7 @@ import Helmet from 'react-helmet';
 import Loading from './loading';
 import NotFound from './notFound';
 import PostCard from '../component/postCard';
+import Disqus from '../component/disqus';
 
 class PostView extends Component {
   componentDidUpdate() {
@@ -37,6 +38,7 @@ class PostView extends Component {
         <Loading />
       );
     }
+    let pageURL = site.link.href + metaURL + post.id + '/';
     return (
       <div className='post-view'>
         <Helmet title={post.title}
@@ -45,8 +47,7 @@ class PostView extends Component {
             { property: 'og:title', content: post.title },
             { property: 'og:type', content: 'article' },
             { property: 'og:image', content: post.image || site.image },
-            { property: 'og:url', content:
-              site.link.href + metaURL + post.id + '/' },
+            { property: 'og:url', content: pageURL },
             // TODO This doesn't seem right
             { property: 'og:description', content: post.brief },
             { property: 'og:locale', content: (post.language ||
@@ -63,6 +64,9 @@ class PostView extends Component {
           })))}
         />
         <PostCard post={post} full rootURL={rootURL} />
+        { post.comment && (
+          <Disqus url={pageURL} id={post.id} />
+        ) }
         { post.layout !== 'page' && (
           <Link to={`${rootURL}/`} className='back'>Back to list</Link>
         )}
