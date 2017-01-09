@@ -1,3 +1,3 @@
 export default function metadataServer(files) {
-  return resId => files[resId] || false;
+  return resId => Promise.resolve(files[resId] || false);
 }

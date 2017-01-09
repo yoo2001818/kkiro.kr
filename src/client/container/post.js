@@ -1,21 +1,19 @@
 import './post.scss';
 
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import Link from 'react-router/lib/Link';
+import fetchData from '../util/fetchData';
+import getLanguage from '../util/getLanguage';
 
 import { load } from '../action/data';
 
+import Link from 'react-router/lib/Link';
 import Helmet from 'react-helmet';
-import LoadComponent from '../component/loadComponent';
 import Loading from './loading';
 import NotFound from './notFound';
 import PostCard from '../component/postCard';
 
-class PostView extends LoadComponent {
-  load(props) {
-    props.load('postEntries', 'en', props.params.id);
-  }
+class PostView extends Component {
   componentDidUpdate() {
     if (location.hash !== '') {
       setTimeout(() => {
@@ -81,8 +79,14 @@ PostView.propTypes = {
   params: PropTypes.object
 };
 
-export default connect(state => ({
+export default fetchData((store, { params }) => {
+  return store.dispatch(load('site'))
+  .then(() => {
+    let language = getLanguage(params, store.getState());
+    return store.dispatch(load('postEntries', language, params.id));
+  });
+})(connect((state, props) => ({
   site: state.data && state.data.site,
   postEntries: state.data && state.data.postEntries &&
-    state.data.postEntries.en
-}), { load })(PostView);
+    state.data.postEntries[getLanguage(props.params, state)]
+}), { load })(PostView));

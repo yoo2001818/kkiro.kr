@@ -11,6 +11,7 @@ export function metadata(keys) {
 }
 
 export const metadataMiddleware = client => store => next => {
+  let loadingPromises = {};
   function processAfter(action, resId, args, body) {
     // Reconstruct structure
     let rootObj = {};
@@ -48,18 +49,16 @@ export const metadataMiddleware = client => store => next => {
         let args = keys.slice(0, i + 1);
         store.dispatch(fetchPending(null, resId));
         let promise = client(resId);
-        if (promise != null && typeof promise.then === 'function') {
-          output.push(promise
-            .then(body => {
-              processAfter(action, resId, args, body);
-            }, error => {
-              return store.dispatch(fetchError(error, resId));
-            }));
-        } else {
-          // If promise wasn't returned, don't do any promise logic to
-          // render it synchronously (It would be just a memory lookup)
-          processAfter(action, resId, args, promise);
-        }
+        let continued = promise
+          .then(body => {
+            processAfter(action, resId, args, body);
+          }, error => {
+            return store.dispatch(fetchError(error, resId));
+          });
+        output.push(continued);
+        loadingPromises[resId] = continued;
+      } else if (loading.indexOf(resId) !== -1) {
+        return loadingPromises[resId];
       }
     }
     for (let i = 0; i < keys.length; ++i) {
@@ -75,7 +74,7 @@ export const metadataMiddleware = client => store => next => {
     }
     fetchResource(keys.length - 1);
     if (output.length > 0) return Promise.all(output);
-    return state;
+    return Promise.resolve();
   };
 };
 

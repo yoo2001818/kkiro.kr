@@ -1,20 +1,17 @@
 import './app.scss';
 
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import fetchData from '../util/fetchData';
 
 import { load } from '../action/data';
 
 import Helmet from 'react-helmet';
 
-import LoadComponent from '../component/loadComponent';
 import Header from '../component/header';
 import Footer from '../component/footer';
 
-class App extends LoadComponent {
-  load(props) {
-    props.load('site');
-  }
+class App extends Component {
   render() {
     const { site } = this.props;
     return (
@@ -60,6 +57,8 @@ App.propTypes = {
   site: PropTypes.object
 };
 
-export default connect(state => ({
+export default fetchData((store) => {
+  return store.dispatch(load('site'));
+})(connect(state => ({
   site: state.data && state.data.site
-}), { load })(App);
+}), { load })(App));

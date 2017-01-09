@@ -1,17 +1,15 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import fetchData from '../util/fetchData';
+import getLanguage from '../util/getLanguage';
 
 import { load } from '../action/data';
 
 import Loading from './loading';
 
-import LoadComponent from '../component/loadComponent';
 import PostList from '../component/postList';
 
-class PostListView extends LoadComponent {
-  load(props) {
-    props.load('posts', 'en');
-  }
+class PostListView extends Component {
   render() {
     const { posts } = this.props;
     if (posts == null) {
@@ -32,6 +30,13 @@ PostListView.propTypes = {
   load: PropTypes.func
 };
 
-export default connect(state => ({
-  posts: state.data && state.data.posts && state.data.posts.en
-}), { load })(PostListView);
+export default fetchData((store, { params }) => {
+  return store.dispatch(load('site'))
+  .then(() => {
+    let language = getLanguage(params, store.getState());
+    return store.dispatch(load('posts', language));
+  });
+})(connect((state, props) => ({
+  posts: state.data && state.data.posts &&
+    state.data.posts[getLanguage(props.params, state)]
+}), { load })(PostListView));

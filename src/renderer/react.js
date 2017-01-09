@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
 import serialize from 'serialize-javascript';
 
+import prefetch from '../client/util/prefetch';
 import routes from '../client/routes';
 import createStore from '../client/store';
 import metadataMiddleware from '../client/middleware/metadata';
@@ -25,20 +26,19 @@ export default function renderReact(link, files, publicPath,
         // TODO Uh... what?
         reject(new Error('Redirection is not supported yet'));
       } else if (renderProps) {
-        let tree = (
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>
-        );
-        // FIXME: We have to render twice to make it operate properly
-        renderToStaticMarkup(tree);
-        Helmet.rewind();
-        let result = renderToStaticMarkup(tree);
-        let head = Helmet.rewind();
-        // OK, then wrap the data into HTML
-        let assets = assetsByChunkName.main;
-        if (!Array.isArray(assets)) assets = [assets];
-        let html = `<!doctype html>
+        prefetch(store, renderProps)
+        .then(() => {
+          let tree = (
+            <Provider store={store}>
+              <RouterContext {...renderProps} />
+            </Provider>
+          );
+          let result = renderToStaticMarkup(tree);
+          let head = Helmet.rewind();
+          // OK, then wrap the data into HTML
+          let assets = assetsByChunkName.main;
+          if (!Array.isArray(assets)) assets = [assets];
+          let html = `<!doctype html>
 <html>
   <head>
     ${head.title.toString()}
@@ -66,9 +66,9 @@ export default function renderReact(link, files, publicPath,
     }
     ${footer}
   </body>
-</html>
-    `;
-        resolve(html);
+</html>`;
+          resolve(html);
+        });
       }
     });
   });

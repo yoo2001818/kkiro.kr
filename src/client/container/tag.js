@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import fetchData from '../util/fetchData';
+import getLanguage from '../util/getLanguage';
 
 import { load } from '../action/data';
 
@@ -7,13 +9,9 @@ import NotFound from './notFound';
 import Loading from './loading';
 import Helmet from 'react-helmet';
 
-import LoadComponent from '../component/loadComponent';
 import PostList from '../component/postList';
 
-class Tag extends LoadComponent {
-  load(props) {
-    props.load('tagEntries', 'en', props.params.id);
-  }
+class Tag extends Component {
   render() {
     const { tagEntries, params } = this.props;
     const tag = tagEntries && tagEntries[params.id];
@@ -43,6 +41,13 @@ Tag.propTypes = {
   params: PropTypes.object
 };
 
-export default connect(state => ({
-  tagEntries: state.data && state.data.tagEntries && state.data.tagEntries.en
-}), { load })(Tag);
+export default fetchData((store, { params }) => {
+  return store.dispatch(load('site'))
+  .then(() => {
+    let language = getLanguage(params, store.getState());
+    return store.dispatch(load('tagEntries', language, params.id));
+  });
+})(connect((state, props) => ({
+  tagEntries: state.data && state.data.tagEntries &&
+    state.data.tagEntries[getLanguage(props.params, state)]
+}), { load })(Tag));

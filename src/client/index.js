@@ -6,6 +6,7 @@ import applyRouterMiddleware from 'react-router/lib/applyRouterMiddleware';
 import { Provider } from 'react-redux';
 import { useScroll } from 'react-router-scroll';
 
+import prefetch from './util/prefetch';
 import metadataClient from './util/metadataClient';
 import metadataMiddleware from './middleware/metadata';
 import createStore from './store';
@@ -28,12 +29,17 @@ let scrollMiddleware = useScroll((prevRouterProps, {routes, location}) => {
   return true;
 });
 
+function handleUpdate() {
+  prefetch(store, this.state);
+}
+
 render((
   <Provider store={store}>
     <Router
       history={browserHistory}
       render={applyRouterMiddleware(scrollMiddleware)}
       routes={routes}
+      onUpdate={handleUpdate}
     />
   </Provider>
 ), document.getElementById('root'));

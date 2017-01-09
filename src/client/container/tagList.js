@@ -1,20 +1,18 @@
 import './tagList.scss';
 
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import fetchData from '../util/fetchData';
+import getLanguage from '../util/getLanguage';
 
 import { load } from '../action/data';
 
 import Loading from './loading';
 import Helmet from 'react-helmet';
 
-import LoadComponent from '../component/loadComponent';
 import Link from 'react-router/lib/Link';
 
-class TagList extends LoadComponent {
-  load(props) {
-    props.load('tags', 'en');
-  }
+class TagList extends Component {
   render() {
     const { tags } = this.props;
     if (tags == null) {
@@ -46,6 +44,13 @@ TagList.propTypes = {
   load: PropTypes.func
 };
 
-export default connect(state => ({
-  tags: state.data && state.data.tags && state.data.tags.en
-}), { load })(TagList);
+export default fetchData((store, { params }) => {
+  return store.dispatch(load('site'))
+  .then(() => {
+    let language = getLanguage(params, store.getState());
+    return store.dispatch(load('tags', language));
+  });
+})(connect((state, props) => ({
+  tags: state.data && state.data.tags &&
+    state.data.tags[getLanguage(props.params, state)]
+}), { load })(TagList));
