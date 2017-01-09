@@ -1,9 +1,8 @@
 @import '../style/index.scss';
 
 header {
-  box-sizing: border-box;
   width: 100%;
-  padding: 0 1em;
+  min-height: $header-height;
   line-height: $header-height;
 
   background: $green-700;
@@ -11,8 +10,10 @@ header {
   border-bottom: 1px solid $green-800;
 
   & > .content {
+    box-sizing: border-box;
     max-width: $tablet-size;
     margin: 0 auto;
+    padding: 0 1em;
     & > h1 {
       display: inline-block;
       margin: 0;

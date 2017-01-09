@@ -5,12 +5,12 @@ import Link from 'react-router/lib/Link';
 
 export default class Header extends Component {
   render() {
-    const { title, menu } = this.props;
+    const { title, menu, rootURL } = this.props;
     return (
       <header>
         <div className='content'>
           <h1>
-            <Link to='/'>{ title }</Link>
+            <Link to={`${rootURL}/`}>{ title }</Link>
           </h1>
           <nav>
             <ul>
@@ -29,5 +29,6 @@ export default class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.node,
-  menu: PropTypes.object
+  menu: PropTypes.object,
+  rootURL: PropTypes.string
 };

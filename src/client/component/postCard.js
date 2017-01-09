@@ -10,12 +10,12 @@ import PostRenderer from './postRenderer';
 
 export default class PostCard extends Component {
   render() {
-    const { post, full, truncated } = this.props;
+    const { post, full, truncated, rootURL } = this.props;
     return (
       <article className={classNames('post-card', { truncated })}>
         <div className='header'>
           <h1>
-            <Link to={`/${post.id}/`}>{post.title}</Link>
+            <Link to={`${rootURL}/${post.id}/`}>{post.title}</Link>
           </h1>
           <div className='extra'>
             <span className='date' title={
@@ -27,7 +27,7 @@ export default class PostCard extends Component {
             <ul className='tags'>
               { post.tags.map((v, i) => (
                 <li key={i}>
-                  <Link to={`/tags/${v}/`}>{v}</Link>
+                  <Link to={`${rootURL}/tags/${v}/`}>{v}</Link>
                 </li>
               )) }
             </ul>
@@ -38,7 +38,7 @@ export default class PostCard extends Component {
             <PostRenderer post={post} full={full} />
             { post.more && !full && (
               <div className='more'>
-                <Link to={`/${post.id}/#hr`}>Read more...</Link>
+                <Link to={`${rootURL}/${post.id}/#hr`}>Read more...</Link>
               </div>
             )}
           </div>
@@ -51,5 +51,6 @@ export default class PostCard extends Component {
 PostCard.propTypes = {
   post: PropTypes.object,
   full: PropTypes.bool,
-  truncated: PropTypes.bool
+  truncated: PropTypes.bool,
+  rootURL: PropTypes.string
 };

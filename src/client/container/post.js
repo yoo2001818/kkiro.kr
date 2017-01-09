@@ -3,7 +3,7 @@ import './post.scss';
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import fetchData from '../util/fetchData';
-import getLanguage from '../util/getLanguage';
+import fetchLanguage from '../util/fetchLanguage';
 
 import { load } from '../action/data';
 
@@ -25,7 +25,7 @@ class PostView extends Component {
     }
   }
   render() {
-    const { postEntries, site, params } = this.props;
+    const { postEntries, site, params, rootURL } = this.props;
     const post = postEntries && postEntries[params.id];
     if (post === false) {
       return (
@@ -44,14 +44,13 @@ class PostView extends Component {
             { name: 'description', content: post.title },
             { property: 'og:title', content: post.title },
             { property: 'og:type', content: 'article' },
-            { property: 'og:image', content: post.image ||
-              (site && site.image) },
+            { property: 'og:image', content: post.image || site.image },
             { property: 'og:url', content:
-              (site && site.link.href) + post.id + '/' },
+              rootURL + site.link.href + post.id + '/' },
             // TODO This doesn't seem right
             { property: 'og:description', content: post.brief },
             { property: 'og:locale', content: (post.language ||
-              (site && site.language)).replace(/-/g, '_') },
+              site.language).replace(/-/g, '_') },
             { property: 'article:published_time', content:
               new Date(post.published).toISOString() },
             { property: 'article:modified_time', content:
@@ -63,9 +62,9 @@ class PostView extends Component {
             property: 'article:tag', content: tag
           })))}
         />
-        <PostCard post={post} full />
+        <PostCard post={post} full rootURL={rootURL} />
         { post.layout !== 'page' && (
-          <Link to='/' className='back'>Back to list</Link>
+          <Link to={`${rootURL}/`} className='back'>Back to list</Link>
         )}
       </div>
     );
@@ -76,17 +75,13 @@ PostView.propTypes = {
   site: PropTypes.object,
   postEntries: PropTypes.object,
   load: PropTypes.func,
-  params: PropTypes.object
+  params: PropTypes.object,
+  rootURL: PropTypes.object
 };
 
-export default fetchData((store, { params }) => {
-  return store.dispatch(load('site'))
-  .then(() => {
-    let language = getLanguage(params, store.getState());
-    return store.dispatch(load('postEntries', language, params.id));
-  });
-})(connect((state, props) => ({
-  site: state.data && state.data.site,
+export default fetchData(fetchLanguage((store, { params }, language) => {
+  return store.dispatch(load('postEntries', language, params.id));
+}))(connect((state, props) => ({
   postEntries: state.data && state.data.postEntries &&
-    state.data.postEntries[getLanguage(props.params, state)]
+    state.data.postEntries[props.language]
 }), { load })(PostView));
