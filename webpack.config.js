@@ -13,8 +13,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public', 'assets'),
     publicPath: '/assets/',
     filename: 'bundle.js',
-    chunkFilename: '[id].js',
-    pathinfo: true
+    chunkFilename: '[id].js'
   },
   resolve: {
     root: path.join(__dirname, 'src'),
@@ -37,7 +36,7 @@ module.exports = {
       new ExtractTextPlugin('bundle.css'),
       new LodashModuleReplacementPlugin(),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.UglifyJsPlugin({ comments: false }),
       new webpack.optimize.OccurenceOrderPlugin()
     ] : [
       new webpack.HotModuleReplacementPlugin()

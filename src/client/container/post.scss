@@ -2,6 +2,11 @@
 
 .post-view {
   margin: 1em 0;
+  .post-card > .content {
+    margin: 2em auto;
+    padding: 0;
+    max-width: 40em;
+  }
   & > .back {
     display: block;
     text-align: center;

@@ -51,6 +51,7 @@
   & > .content {
     margin: 0.6em 0 1em;
     padding: 0 0.5em;
+    box-sizing: border-box;
     & > .more {
       margin: 1em 0;
       font-size: 0.95em;
