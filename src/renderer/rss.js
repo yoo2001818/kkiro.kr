@@ -9,8 +9,8 @@ let renderRSSPug = pug.compileFile(path.resolve(__dirname, 'rss.pug'), {
 // Pretty much same as Atom code.
 export default function renderRSS(data) {
   return renderRSSPug(Object.assign({}, data, {
-    posts: data.posts.map(post => Object.assign({}, post, {
-      briefHTML: marked(post.brief)
-    }))
+    renderBrief: marked,
+    // Temporary patch until finished
+    language: 'en'
   }));
 }

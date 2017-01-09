@@ -9,8 +9,7 @@ rss(version='2.0')
     title= site.title
     link= site.link.href
     description= site.description
-    if site.language
-      language= site.language
+    language= language
     if site.copyright
       copyright= site.copyright
     pubDate= site.updated
@@ -20,12 +19,12 @@ rss(version='2.0')
     if site.author
       managingEditor= formatAuthor(site.author)
       webMaster= formatAuthor(site.author)
-  each post in posts
+  each post in posts[language]
     item
       guid= post.id
       title= post.title
       link= `${site.link.href}${post.id}/`
-      description= post.briefHTML
+      description= renderBrief(post.brief)
       if post.author || site.author
         author= formatAuthor(post.author || site.author)
       pubDate= post.published.toISOString()

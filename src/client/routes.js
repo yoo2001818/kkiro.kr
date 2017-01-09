@@ -10,7 +10,7 @@ import Tag from './container/tag';
 import NotFound from './container/notFound';
 
 export default (
-  <Route path='/' component={App}>
+  <Route path='/(lang-:lang/)' component={App}>
     <IndexRoute component={PostList} />
     <Route path='tags/' component={TagList} />
     <Route path='tags/:id/' component={Tag} />

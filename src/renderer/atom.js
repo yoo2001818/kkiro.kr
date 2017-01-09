@@ -12,8 +12,8 @@ export default function renderAtom(data) {
   // we can change it? Though it'd be meaningless because caching atom.xml
   // is much much better
   return renderAtomPug(Object.assign({}, data, {
-    posts: data.posts.map(post => Object.assign({}, post, {
-      briefHTML: marked(post.brief)
-    }))
+    renderBrief: marked,
+    // Temporary patch until finished
+    language: 'en'
   }));
 }

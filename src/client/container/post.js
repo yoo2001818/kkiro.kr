@@ -14,7 +14,7 @@ import PostCard from '../component/postCard';
 
 class PostView extends LoadComponent {
   load(props) {
-    props.load('postEntries', props.params.id);
+    props.load('postEntries', 'en', props.params.id);
   }
   componentDidUpdate() {
     if (location.hash !== '') {
@@ -83,5 +83,6 @@ PostView.propTypes = {
 
 export default connect(state => ({
   site: state.data && state.data.site,
-  postEntries: state.data && state.data.postEntries
+  postEntries: state.data && state.data.postEntries &&
+    state.data.postEntries.en
 }), { load })(PostView);

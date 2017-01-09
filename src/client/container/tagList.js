@@ -13,7 +13,7 @@ import Link from 'react-router/lib/Link';
 
 class TagList extends LoadComponent {
   load(props) {
-    props.load('tags');
+    props.load('tags', 'en');
   }
   render() {
     const { tags } = this.props;
@@ -47,5 +47,5 @@ TagList.propTypes = {
 };
 
 export default connect(state => ({
-  tags: state.data && state.data.tags
+  tags: state.data && state.data.tags && state.data.tags.en
 }), { load })(TagList);

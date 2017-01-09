@@ -3,14 +3,26 @@
 export default {
   _self: false,
   site: 'site',
-  tags: 'tags',
-  posts: 'posts',
+  tags: {
+    _self: false,
+    _each: lang => `tags-${lang}`
+  },
+  posts: {
+    _self: false,
+    _each: lang => `posts-${lang}`
+  },
   postEntries: {
     _self: false,
-    _each: id => `post-${id}`
+    _each: {
+      _self: false,
+      _each: (id, lang) => `post-${id}-${lang}`
+    }
   },
   tagEntries: {
     _self: false,
-    _each: tag => `tag-${tag}`
+    _each: {
+      _self: false,
+      _each: (tag, lang) => `tag-${tag}-${lang}`
+    }
   }
 };

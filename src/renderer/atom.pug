@@ -12,7 +12,7 @@ mixin objTree(obj, allowed)
       #{key}
         +objTree(val, false)
 
-feed(xmlns='http://www.w3.org/2005/Atom', lang=site.language)
+feed(xmlns='http://www.w3.org/2005/Atom', lang=language)
   +objTree(site, {
     title: 'title',
     description: 'subtitle',
@@ -24,11 +24,11 @@ feed(xmlns='http://www.w3.org/2005/Atom', lang=site.language)
     updated: 'updated',
     generator: 'generator'
   })
-  each post in posts
+  each post in posts[language]
     entry
       id= post.id
       link(href=`${site.link.href}${post.id}/`)
-      summary(type='html')= post.briefHTML
+      summary(type='html')= renderBrief(post.brief)
       title= post.title
       published= post.published.toISOString()
       updated= post.updated.toISOString()

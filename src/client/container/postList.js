@@ -10,7 +10,7 @@ import PostList from '../component/postList';
 
 class PostListView extends LoadComponent {
   load(props) {
-    props.load('posts');
+    props.load('posts', 'en');
   }
   render() {
     const { posts } = this.props;
@@ -33,5 +33,5 @@ PostListView.propTypes = {
 };
 
 export default connect(state => ({
-  posts: state.data && state.data.posts
+  posts: state.data && state.data.posts && state.data.posts.en
 }), { load })(PostListView);

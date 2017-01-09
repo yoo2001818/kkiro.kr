@@ -22,7 +22,15 @@ module.exports = {
       About: '/about/',
       Tags: '/tags/'
     },
-    language: 'en-US'
+    // This is main language of the site - if other languages are detected,
+    // separate post lists will be created for different languages.
+    language: 'en',
+    // Other languages.
+    languages: {
+      ko: {
+        description: '끼로의 블로그'
+      }
+    }
   },
   footer: fs.readFileSync(path.resolve(__dirname, 'footer.txt'), 'utf-8'),
   source: path.resolve(__dirname, 'posts'),

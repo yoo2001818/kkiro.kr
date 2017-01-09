@@ -12,7 +12,7 @@ import PostList from '../component/postList';
 
 class Tag extends LoadComponent {
   load(props) {
-    props.load('tagEntries', props.params.id);
+    props.load('tagEntries', 'en', props.params.id);
   }
   render() {
     const { tagEntries, params } = this.props;
@@ -44,5 +44,5 @@ Tag.propTypes = {
 };
 
 export default connect(state => ({
-  tagEntries: state.data && state.data.tagEntries
+  tagEntries: state.data && state.data.tagEntries && state.data.tagEntries.en
 }), { load })(Tag);

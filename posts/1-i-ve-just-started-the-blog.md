@@ -23,7 +23,9 @@ data into single JS file. Which is very horrible for scaling.
 
 So I made a [blog generator](https://github.com/yoo2001818/kkiro.kr) suitable
 for my use. But since it's quite complicated, I'm having a problem separating
-the generator and the website. (It's not heavily tied with each other though)
+the generator and the website. (It's not heavily tied with each other though,
+but since everything depends on single schema, it's hard to separate them to
+libraries)
 I'll write detailed article about it later.
 
 # Multilingual support?
