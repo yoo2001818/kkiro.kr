@@ -34,10 +34,14 @@ export default class Disqus extends Component {
       });
     }
   }
+  componentWillUnmount() {
+    // Clean up disqus mess
+    this.node.removeAttribute('style');
+  }
   render() {
     return (
       <div className='comment'>
-        <div id='disqus_thread'></div>
+        <div id='disqus_thread' ref={node => this.node = node}></div>
       </div>
     );
   }
