@@ -28,7 +28,11 @@ module.exports = {
     // Other languages.
     languages: {
       ko: {
-        description: '끼로의 블로그'
+        description: '끼로의 블로그',
+        menu: {
+          소개: '/lang-ko/about/',
+          태그: '/lang-ko/tags/'
+        }
       }
     }
   },
