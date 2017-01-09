@@ -25,7 +25,7 @@ class PostView extends Component {
     }
   }
   render() {
-    const { postEntries, site, params, rootURL } = this.props;
+    const { postEntries, site, params, rootURL, metaURL } = this.props;
     const post = postEntries && postEntries[params.id];
     if (post === false) {
       return (
@@ -46,7 +46,7 @@ class PostView extends Component {
             { property: 'og:type', content: 'article' },
             { property: 'og:image', content: post.image || site.image },
             { property: 'og:url', content:
-              rootURL + site.link.href + post.id + '/' },
+              site.link.href + metaURL + post.id + '/' },
             // TODO This doesn't seem right
             { property: 'og:description', content: post.brief },
             { property: 'og:locale', content: (post.language ||
@@ -76,7 +76,8 @@ PostView.propTypes = {
   postEntries: PropTypes.object,
   load: PropTypes.func,
   params: PropTypes.object,
-  rootURL: PropTypes.string
+  rootURL: PropTypes.string,
+  metaURL: PropTypes.string
 };
 
 export default fetchData(fetchLanguage((store, { params }, language) => {

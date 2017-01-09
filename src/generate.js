@@ -89,9 +89,17 @@ export default async function generate(config, noWebpack) {
   }
   // Render Atom / RSS
   console.log('Rendering Atom / RSS feed');
+  let languages = [metadata.site.language].concat(
+    Object.keys(metadata.site.languages));
   await fs.writeFile(path.resolve(config.output, 'atom.xml'),
     renderAtom(metadata));
   await fs.writeFile(path.resolve(config.output, 'rss.xml'),
     renderRSS(metadata));
+  for (let language of languages) {
+    await fs.writeFile(path.resolve(config.output, `atom-${language}.xml`),
+      renderAtom(metadata, language));
+    await fs.writeFile(path.resolve(config.output, `rss-${language}.xml`),
+      renderRSS(metadata, language));
+  }
   console.log('All done!');
 }

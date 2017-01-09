@@ -3,10 +3,11 @@ import separate from './separate';
 import watch from 'watch';
 
 export default function server(site, src) {
+  let metadata = {};
   let data = {};
   async function regenerate() {
     console.log('Rebuilding...');
-    let metadata = await generate(site, src);
+    metadata = await generate(site, src);
     data = separate(metadata);
   }
   watch.watchTree(src, regenerate);
@@ -21,6 +22,6 @@ export default function server(site, src) {
     if (data[url] != null) res.json(data[url]);
     else next();
   };
-  output.getMetadata = () => data;
+  output.getMetadata = () => metadata;
   return output;
 }

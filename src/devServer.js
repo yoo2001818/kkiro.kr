@@ -23,9 +23,15 @@ app.use('/media', serveStatic(config.media));
 app.get('/atom.xml', (req, res) => {
   res.type('xml').send(renderAtom(metadata.getMetadata()));
 });
+app.get('/atom-:language.xml', (req, res) => {
+  res.type('xml').send(renderAtom(metadata.getMetadata(), req.params.language));
+});
 
 app.get('/rss.xml', (req, res) => {
   res.type('xml').send(renderRSS(metadata.getMetadata()));
+});
+app.get('/rss-:language.xml', (req, res) => {
+  res.type('xml').send(renderRSS(metadata.getMetadata(), req.params.language));
 });
 
 app.use(webpackDevMiddleware(webpackCompiler, {

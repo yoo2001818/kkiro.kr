@@ -3,6 +3,7 @@ import './app.scss';
 import React, { PropTypes, Component, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import fetchData from '../util/fetchData';
+import mergeSite from '../../util/mergeSite';
 
 import { load } from '../action/data';
 
@@ -10,11 +11,6 @@ import Helmet from 'react-helmet';
 
 import Header from '../component/header';
 import Footer from '../component/footer';
-
-function mergeSite(site, language) {
-  if (site.language === language) return site;
-  return Object.assign({}, site, site.languages[language]);
-}
 
 class App extends Component {
   render() {
@@ -33,7 +29,10 @@ class App extends Component {
     const site = mergeSite(this.props.site, language);
     const rootURL = (language !== this.props.site.language) ?
       `/lang-${language}` : '';
-    const appProps = { language, site, rootURL };
+    const langCode = (site && site.language) === language ? '' : `-${language}`;
+    const metaURL = (language !== this.props.site.language) ?
+      `lang-${language}/` : '';
+    const appProps = { language, site, rootURL, metaURL };
     const path = this.props.location.pathname;
     return (
       <div className='app'>
@@ -45,6 +44,16 @@ class App extends Component {
               rel: 'shortcut icon',
               type: 'image/x-icon',
               href: '/favicon.ico'
+            },
+            {
+              rel: 'alternate',
+              type: 'application/rss+xml',
+              href: `${site.link.href}rss${langCode}.xml`
+            },
+            {
+              rel: 'alternate',
+              type: 'application/atom+xml',
+              href: `${site.link.href}atom${langCode}.xml`
             }
           ]}
           meta={[
@@ -56,7 +65,7 @@ class App extends Component {
             { property: 'og:title', content: site.title },
             { property: 'og:description', content: site.description },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: rootURL + site.link.href },
+            { property: 'og:url', content: site.link.href + metaURL },
             { property: 'og:image', content: site.image },
             { property: 'og:locale', content: language.replace(/-/g, '_') }
           ]}
