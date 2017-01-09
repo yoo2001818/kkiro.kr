@@ -31,6 +31,10 @@ let scrollMiddleware = useScroll((prevRouterProps, {routes, location}) => {
 
 function handleUpdate() {
   prefetch(store, this.state);
+  if (typeof document.ga !== 'undefined') {
+    document.ga('set', 'page', this.state.location.pathname);
+    document.ga('send', 'pageview');
+  }
 }
 
 render((
