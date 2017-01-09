@@ -24,6 +24,16 @@ header {
         color: $grey-100;
       }
     }
+    & > .language-selector {
+      font-size: 1.1em;
+      float: right;
+      .button a {
+        color: $green-300;
+      }
+      & > .drop-down-component > .content {
+        margin-top: -0.3em;
+      }
+    }
     & > nav {
       display: inline-block;
       vertical-align: middle;
@@ -43,9 +53,6 @@ header {
       }
     }
     @media screen and (max-width: 25em) {
-      & > h1 {
-        display: block;
-      }
       & > nav {
         display: block;
         line-height: 2.4em;

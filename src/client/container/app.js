@@ -13,8 +13,7 @@ import Footer from '../component/footer';
 
 function mergeSite(site, language) {
   if (site.language === language) return site;
-  return Object.assign({}, site, site.languages[language],
-    { language: language });
+  return Object.assign({}, site, site.languages[language]);
 }
 
 class App extends Component {
@@ -35,6 +34,7 @@ class App extends Component {
     const rootURL = (language !== this.props.site.language) ?
       `/lang-${language}` : '';
     const appProps = { language, site, rootURL };
+    const path = this.props.location.pathname;
     return (
       <div className='app'>
         <Helmet
@@ -61,7 +61,8 @@ class App extends Component {
             { property: 'og:locale', content: language.replace(/-/g, '_') }
           ]}
         />
-        <Header title={site.title} menu={site.menu} {...appProps} />
+        <Header title={site.title} menu={site.menu} path={path}
+          {...appProps} />
         <main>
           {cloneElement(this.props.children, appProps)}
         </main>
@@ -75,7 +76,8 @@ App.propTypes = {
   children: PropTypes.node,
   load: PropTypes.func,
   site: PropTypes.object,
-  params: PropTypes.object
+  params: PropTypes.object,
+  location: PropTypes.object
 };
 
 export default fetchData((store) => {

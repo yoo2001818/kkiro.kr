@@ -76,7 +76,7 @@ PostView.propTypes = {
   postEntries: PropTypes.object,
   load: PropTypes.func,
   params: PropTypes.object,
-  rootURL: PropTypes.object
+  rootURL: PropTypes.string
 };
 
 export default fetchData(fetchLanguage((store, { params }, language) => {
