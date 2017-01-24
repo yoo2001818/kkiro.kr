@@ -30,5 +30,9 @@ libraries)
 I'll write detailed article about it later.
 
 # Multilingual support?
-I'm planning to make multilingual support for this blog to support Korean.
-Probably later.
+I made simple multilingual support for this blog to support Korean.
+It was pretty hard to edit the code to do multilingual support, since almost
+every code had to be modified.
+
+It simply separates the site with languages, which can be switched using
+the button on the top right.
