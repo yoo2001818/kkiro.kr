@@ -40,7 +40,7 @@ That being said, the structure became something similiar to
 [git](https://git-scm.com/). I need version history, merging, distribution.
 So I looked for it and found
 [Noms](https://github.com/attic-labs/noms). It looks good, but it looks so
-complicated and it hasn't matured yet - so I decided to build asimple
+complicated and it hasn't matured yet - so I decided to build a simple
 distributed and versioned database system.
 
 After designing few concepts about the database, it became
@@ -91,9 +91,9 @@ be able to store them in JSON file. Perhaps it could 'rebase' every conflict,
 making only one parent can exist. That way, it can scan the transaction list
 much much faster. It'll tamper with the history, though.
 
-The problem is that a rebase occurs, the history breaks and the synchronization
-will break if there are more than 3 devices on the database, since devices that
-synchronize after rebasing won't know how it is connected.
+The problem is if that a rebase occurs, the history breaks and the
+synchronization will break if there are more than 3 devices on the database,
+since devices that synchronize after rebasing won't know how it is connected.
 
 I need more time to think on that.
 
