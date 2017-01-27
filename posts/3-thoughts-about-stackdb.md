@@ -1,7 +1,7 @@
 ---
 title: Thoughts about stackdb
 published: 2017/01/26 18:16
-updated: 2017/01/26 18:16
+updated: 2017/01/27 23:35
 tags: database, distributed, structure, node.js, javascript
 comment: true
 ---
@@ -91,11 +91,52 @@ be able to store them in JSON file. Perhaps it could 'rebase' every conflict,
 making only one parent can exist. That way, it can scan the transaction list
 much much faster. It'll tamper with the history, though.
 
-The problem is if that a rebase occurs, the history breaks and the
-synchronization will break if there are more than 3 devices on the database,
-since devices that synchronize after rebasing won't know how it is connected.
+## Merging algorithm
+Merging algorithm would be pretty complicated, because transactions are
+placed in a single list. To store parent information, it'd use relative
+offsets to link the parents.
 
-I need more time to think on that.
+### Finding mutual parent
+Finding mutual parent can be done by reversing transactions by following
+parents, then checking each node if they are same node with same parent
+distance(s). If 'merging' node appears, simply following any parent will work
+(But it should be same between two computers).
+
+If one side hasn't made any transaction yet, we can skip rest of merging
+algorithm - it can be 'fast forwarded'.
+
+I'm not sure if there are any failing cases about this, though.
+
+### Conflict detection
+Before merging the transactions, the conflict detector should detect if both
+branches conflict. The conflict detector would be feeded by each transaction
+on branch, and it would output conflicting transactions.
+
+If there are any conflicting transactions, it should be handled. The
+conflict handler would process the transactions and convert them into
+'fixed' transactions, while keeping the original version in the data.
+
+### Ordering transactions
+Since the transactions are stored in linear array, the algorithm must order the
+transactions. This is done by choosing 'merger' and 'mergee'. Usually branch
+with lower transactions count will be chosen as 'merger'.
+
+Merger's transactions are 'spliced' into the mergee's transaction list.
+While doing this, parent indexes must be updated. While updating this,
+the algorithm would construct internal linked list and reverse children lookup
+indexes to make the operation much faster (splicing an array takes O(n^2) time,
+while linked list takes O(1) time, if it already has the node as variable.)
+
+Or, it could build new output array. I'm thinking about what'd be efficient.
+
+Transaction order can be anything; But it should be deterministic to prevent
+weird stuff from happening. Usually the commit date would be used to order
+them, though.
+
+### Creating 'merge' transaction
+After ordering the transactions, it needs to finalize it by creating 'merge'
+transaction, which has two parents. After that, the merging finalizes and
+the current state updates to reflect merged state.
 
 ## Database locking
 The database must be locked while syncing; because the transaction list changes
