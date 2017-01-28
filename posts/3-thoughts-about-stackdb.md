@@ -96,6 +96,8 @@ Merging algorithm would be pretty complicated, because transactions are
 placed in a single list. To store parent information, it'd use relative
 offsets to link the parents.
 
+![stackdb merging algorithm illustration](/media/stackdbMerging.png)
+
 ### Finding mutual parent
 Finding mutual parent can be done by reversing transactions by following
 parents, then checking each node if they are same node with same parent
