@@ -12,7 +12,7 @@ construction for 8 years. Really!)
 
 It's quite simple and buggy now though, but I'll improve on that.
 
-# Blog generator
+## Blog generator
 I've made a static blog generator because nothing was good enough. I badly
 wanted to use React in my blog, but, there was no static blog generator that
 fits my use.
@@ -29,7 +29,7 @@ but since everything depends on single schema, it's hard to separate them to
 libraries)
 I'll write detailed article about it later.
 
-# Multilingual support?
+## Multilingual support?
 I made simple multilingual support for this blog to support Korean.
 It was pretty hard to edit the code to do multilingual support, since almost
 every code had to be modified.

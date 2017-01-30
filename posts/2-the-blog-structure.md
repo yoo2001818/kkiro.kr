@@ -12,7 +12,7 @@ I'm writing an article about the blog structure. It's quite messy though.
 
 ---
 
-# Overview
+## Overview
 The blog ([kkiro.kr](http://kkiro.kr/)) uses a static blog generator -
 which uses React server side rendering (SSR) to render the page. It also uses
 JSON chunks to download only required information.
@@ -28,7 +28,7 @@ The generator is separated to multiple parts, mainly:
 - **RSS / Atom renderer** - Renders Atom/RSS feed using
   [pug](https://pugjs.com/) template engine.
 
-## Why?
+### Why?
 Sure, I could have made the blog using other static blog generators. But
 they're not fancy - I wanted to use React, single page app (SPA) and bunch of
 'new' technologies because they're cool.
@@ -48,7 +48,7 @@ I'll reconsider using Gatsby once version 1.0 gets released.
 Anyway, sure, GraphQL is cool, but I'm not quite ready for it now - I don't
 think it has matured enough.
 
-# Client code
+## Client code
 Well, the client code is the client code. I've used redux to manage
 the site state, but it's not really necessary though.
 
@@ -65,7 +65,7 @@ React, react-router, redux.
 
 The blog generator actually calls webpack to bundle the client code, though.
 
-# Metadata generator
+## Metadata generator
 **Metadata generator** crawls the `posts` folder and generates posts
 metadata. Since we don't use GraphQL or something like that to process the
 data, the data is separated to actual post data and post lists, tag lists,
@@ -110,7 +110,7 @@ build the whole site.
 It doesn't look fancy - but this is done to create the JSON file for each page.
 After the generation is finished, It passes the data into the separator.
 
-# Metadata separator
+## Metadata separator
 **Metadata separator** splits the metadata file into chunks of metadata
 information, and stores them into a dictionary with generated keys - eventually
 they become the filename.
@@ -129,7 +129,7 @@ dynamic preview of the page.
 
 Anyway, the generator still has to render the pages and atom / RSS feed.
 
-# React renderer
+## React renderer
 **React renderer** renders the website's HTML file using the client code.
 
 First, link renderer reads the metadata and generates the URLs that need to be
@@ -149,7 +149,7 @@ It also uses react-helmet to construct header tags too.
 
 After everything is done, it simply stores bunch of HTML pages.
 
-# RSS / Atom renderer
+## RSS / Atom renderer
 **RSS / Atom renderer** renders the RSS / Atom feed of the blog. Actually, I
 could have skipped that, but since I use the feed reader often, I wanted to
 implement RSS / Atom feed for my blog too.
@@ -166,7 +166,7 @@ After implementing multilingual support, the RSS / Atom feed had to render
 the XML for each languages. So I've changed them to filter the articles with
 selected language.
 
-# Conclusion
+## Conclusion
 That's pretty all about my blog's structure. I had fun making it since I've
 never done static generation before. It turned out that I just had to use
 server side rendering like regular web server.
