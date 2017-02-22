@@ -1,7 +1,7 @@
 ---
 title: Thoughts about stackdb
 published: 2017/01/26 18:16
-updated: 2017/01/27 23:35
+updated: 2017/02/22 23:35
 tags: database, distributed, structure, node.js, javascript
 comment: true
 ---
@@ -96,6 +96,8 @@ Merging algorithm would be pretty complicated, because transactions are
 placed in a single list. To store parent information, it'd use relative
 offsets to link the parents.
 
+**This is old version of the algorithm:**
+
 ![stackdb merging algorithm illustration](/media/stackdbMerging.png)
 
 #### Finding mutual parent
@@ -120,20 +122,42 @@ conflict handler would process the transactions and convert them into
 
 #### Ordering transactions
 Since the transactions are stored in linear array, the algorithm must order the
-transactions. This is done by choosing 'merger' and 'mergee'. Usually branch
-with lower transactions count will be chosen as 'merger'.
+transactions.
 
-Merger's transactions are 'spliced' into the mergee's transaction list.
-While doing this, parent indexes must be updated. While updating this,
-the algorithm would construct internal linked list and reverse children lookup
-indexes to make the operation much faster (splicing an array takes O(n^2) time,
-while linked list takes O(1) time, if it already has the node as variable.)
+**This is old version of the algorithm:**
 
-Or, it could build new output array. I'm thinking about what'd be efficient.
+> This is done by choosing 'merger' and 'mergee'. Usually branch
+> with lower transactions count will be chosen as 'merger'.
+>
+> Merger's transactions are 'spliced' into the mergee's transaction list.
+> While doing this, parent indexes must be updated. While updating this,
+> the algorithm would construct internal linked list and reverse children lookup
+> indexes to make the operation much faster (splicing an array takes O(n^2)
+> time, while linked list takes O(1) time, if it already has the node
+> as variable.)
+>
+> Or, it could build new output array. I'm thinking about what'd be efficient.
+>
+> Transaction order can be anything; But it should be deterministic to prevent
+> weird stuff from happening. Usually the commit date would be used to order
+> them, though.
 
-Transaction order can be anything; But it should be deterministic to prevent
-weird stuff from happening. Usually the commit date would be used to order
-them, though.
+I've found a better way to order the transactions.
+Just like doing merge sort, it could look first transactions of each list
+and put them into the new array. This is actually much much cheaper than old
+algorithm.
+
+But it needs to reset the parent indexes too. This can be really simplified,
+it could just store parent indexes array, which its size never changes.
+When adding new transaction, it can just get current index and parent index in
+indexes array and set the parent as the difference between two indexes.
+
+This algorithm will be performed in O(n) time, since everything is already
+sorted and we just have to recalculate the parent indexes. That's it!
+
+Additionally, the algorithm would be purely functional, which means that it
+doesn't do any mutation to the input. I can't believe I couldn't think of this
+really simple solution.
 
 #### Creating 'merge' transaction
 After ordering the transactions, it needs to finalize it by creating 'merge'
